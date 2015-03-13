@@ -6,7 +6,7 @@ import datetime
 # import schema # maybe later
 # import json # maybe later
 
-######## test creating csv ########
+######## Create csv ########
 
 ncols = 6
 with open('eggs.csv', 'wb') as csvfile:
@@ -19,11 +19,11 @@ with open('eggs.csv', 'wb') as csvfile:
     spamwriter.writerow(['Spam', 'Lovely Spam', 'Wonderful Spam',
                          'My parents, Ayn Rand and God', 'foo', 'bar'])
 
-######## test generating H&H lab, unrelated to above ########
+######## Generate H&H lab, unrelated to CSV ########
 
 def sigfig(x):
     number_of_figures = 3
-    return str(round(x, number_of_figures - 1 - int(math.log10(x))))
+    return str(round(x, number_of_figures - 1 - int(math.log10(abs(x)))))
 
 def fake_normal_lab(range_low, range_high, how_sick = 0):
     assert 0 <= how_sick <= 1 # sicker means wider standard dev.
@@ -31,12 +31,11 @@ def fake_normal_lab(range_low, range_high, how_sick = 0):
     sigma = (range_low - range_high) / 2 * (how_sick + 1)
     return random.normalvariate(mu, sigma)
 
-def correlate(x, slope, range_low, range_high, how_messy, intercept=0):
-    # to do: take in a function instead of (slope, intercept).
+def correlate(x, f, range_low, range_high, how_messy):
     mu = 0
     sigma = (range_high - range_low) / 2 * how_messy
     epsilon = random.normalvariate(mu, sigma) # error to add to X.
-    return slope * (x + epsilon) + intercept
+    return f(x + epsilon)
 
 def star_if_abnormal(x, range_low, range_high):
     if not (range_low <= x <= range_high):
@@ -44,20 +43,23 @@ def star_if_abnormal(x, range_low, range_high):
     else:
         return ""
 
+#### Parameters
 hlow = 12 # hgb lower limit of normal. To do: check gender.
 hhigh = 17
 messy = 0.4 # higher means worse correlation. 0.4 is pretty good.
-delta = 0.1 # brownian motion parameter
+delta = 0.1 # brownian motion param, units lab/time^2. Hi=labile, lo=stable.
 morbidity_const = 0
-slope = 3 # relationship between hgb and hct
 avg_days = 90 # mean days between two lab measurements
+def hgb2hct(hgb):
+    return 3 * hgb
 
-hgb = fake_normal_lab(hlow,hhigh,morbidity_const) # initial conditions
+#### Initial conditions
+hgb = fake_normal_lab(hlow,hhigh,morbidity_const)
 t = datetime.date(2015,1,1)
 
 print "date\t\thgb\thct"
 for i in range(7):
-    hct = correlate(hgb, slope, hlow, hhigh, messy)
+    hct = correlate(hgb, hgb2hct, hlow, hhigh, messy)
     print str(t) + "\t" + sigfig(hgb) + "\t" + sigfig(hct) + \
         star_if_abnormal(hgb, hlow, hhigh)
     # The update rules are below.
