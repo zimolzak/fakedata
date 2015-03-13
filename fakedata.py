@@ -6,21 +6,6 @@ import datetime
 # import schema # maybe later
 # import json # maybe later
 
-######## Create csv ########
-
-ncols = 6
-with open('eggs.csv', 'wb') as csvfile:
-    spamwriter = csv.writer(csvfile)
-    header =[]
-    for i in range(1,ncols+1):
-        header.append('col'+str(i))
-    spamwriter.writerow(header)
-    spamwriter.writerow(['Spam']*5 + ['Baked Beans'])
-    spamwriter.writerow(['Spam', 'Lovely Spam', 'Wonderful Spam',
-                         'My parents, Ayn Rand and God', 'foo', 'bar'])
-
-######## Generate H&H lab, unrelated to CSV ########
-
 def sigfig(x):
     number_of_figures = 3
     return str(round(x, number_of_figures - 1 - int(math.log10(abs(x)))))
@@ -57,11 +42,12 @@ def hgb2hct(hgb):
 hgb = fake_normal_lab(hlow,hhigh,morbidity_const)
 t = datetime.date(2015,1,1)
 
-print "date\t\thgb\thct"
+labwriter = csv.writer(open('labs.csv', 'wb'))
+labwriter.writerow(["date", "hgb", "hct", "abnl"])
 for i in range(7):
     hct = correlate(hgb, hgb2hct, hlow, hhigh, messy)
-    print str(t) + "\t" + sigfig(hgb) + "\t" + sigfig(hct) + \
-        star_if_abnormal(hgb, hlow, hhigh)
+    labwriter.writerow([str(t), sigfig(hgb), sigfig(hct),
+                        star_if_abnormal(hgb, hlow, hhigh)])
     # The update rules are below.
     dt = datetime.timedelta(int(random.expovariate(1.0 / avg_days)))
     t = t + dt
