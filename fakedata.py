@@ -2,6 +2,7 @@
 import csv
 import random
 import math
+import datetime
 # import schema # maybe later
 # import json # maybe later
 ncols = 6
@@ -32,12 +33,22 @@ def correlate(x, slope, range_low, range_high, how_messy, intercept=0):
     x = x + epsilon
     return three_sigs(slope * x + intercept)
 
-hlow = 14
+hlow = 14 # hgb lower limit of normal
 hhigh = 17
-messy = 0.4 # around 0.4 is pretty good
+messy = 0.4 # higher means worse correlation. 0.4 is pretty good.
+date = datetime.date(2015,1,1)
+delta = 0.1 # brownian motion parameter
+morbidity_const = 0
+
+hgb = fake_normal_lab(hlow,hhigh,morbidity_const) # initial condition
 
 for i in range(7):
-    hgb = fake_normal_lab(hlow,hhigh,1)
     hct = correlate(hgb, 3, hlow, hhigh, messy)
-    print "Hemoglobin: " + str(hgb) + " Hematocrit: " + str(hct) + \
-        " Ratio: " + str(three_sigs(hct / hgb))
+    print "Date: " + str(date) + " Hemoglobin: " + str(hgb) + \
+        " Hematocrit: " + str(hct) + " Ratio: " + \
+        str(three_sigs(hct / hgb))
+
+    # update rules
+    dt = datetime.timedelta(int(random.expovariate(1.0/90)))
+    date = date + dt
+    hgb = three_sigs(hgb + random.normalvariate(0, delta**2 * dt.days))
