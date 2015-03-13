@@ -33,7 +33,13 @@ def correlate(x, slope, range_low, range_high, how_messy, intercept=0):
     x = x + epsilon
     return three_sigs(slope * x + intercept)
 
-hlow = 14 # hgb lower limit of normal
+def star_if_abnormal(x, range_low, range_high):
+    if not (range_low <= x <= range_high):
+        return " **"
+    else:
+        return ""
+
+hlow = 12 # hgb lower limit of normal. To do: check gender.
 hhigh = 17
 messy = 0.4 # higher means worse correlation. 0.4 is pretty good.
 date = datetime.date(2015,1,1)
@@ -42,11 +48,12 @@ morbidity_const = 0
 
 hgb = fake_normal_lab(hlow,hhigh,morbidity_const) # initial condition
 
+print "date\t\thgb\thct"
+
 for i in range(7):
     hct = correlate(hgb, 3, hlow, hhigh, messy)
-    print "Date: " + str(date) + " Hemoglobin: " + str(hgb) + \
-        " Hematocrit: " + str(hct) + " Ratio: " + \
-        str(three_sigs(hct / hgb))
+    print str(date) + "\t" + str(hgb) + "\t" + str(hct) + \
+        star_if_abnormal(hgb, hlow, hhigh)
 
     # update rules
     dt = datetime.timedelta(int(random.expovariate(1.0/90)))
