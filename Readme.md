@@ -56,7 +56,7 @@ Current features
   and how much time has passed since then. In detail, the trend of
   labs over time is modeled as Brownian motion.
 
-Future variables to include
+To do
 --------
 * Patient name, clearly denoted as fake: something like Donaldzz
 Martinzz, or Anthonyfake Walkerfake.
@@ -75,6 +75,8 @@ Martinzz, or Anthonyfake Walkerfake.
 
 * What level of consent for Precision Oncology.
 
-* Age.
+* Age, gender.
 
 * Era of military service.
+
+* Work on code, obviously, with better data structures / classes.
