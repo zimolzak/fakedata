@@ -23,11 +23,13 @@ class LabDefinition:
     def update(self, delta, dt):
         # dt is a timedelta object
         for k in self.roots.keys():
-            self.roots[k]['value'] = self.roots[k]['value'] + random.normalvariate(0, delta**2 * dt.days)
+            self.roots[k]['value'] = self.roots[k]['value'] + \
+                random.normalvariate(0, delta**2 * dt.days)
         for k in self.correlate_functions.keys():
             self.reset_correlate(k)
     def new_correlate(self, name, f, rootname, how_messy):
-        self.correlate_functions[name] = {'function':f, 'rootname':rootname, 'messy':how_messy}
+        self.correlate_functions[name] = \
+            {'function':f, 'rootname':rootname, 'messy':how_messy}
         self.reset_correlate(name)
     def reset_correlate(self, name):
         # Takes main value, adds a little error to it, and stores f(x).
@@ -35,9 +37,11 @@ class LabDefinition:
         f = self.correlate_functions[name]['function']
         how_messy = self.correlate_functions[name]['messy']
         myroot = self.correlate_functions[name]['rootname']
-        sigma = (self.roots[myroot]['high'] - self.roots[myroot]['low']) / 2 * how_messy
+        sigma = (self.roots[myroot]['high'] - self.roots[myroot]['low']) \
+            / 2 * how_messy
         epsilon = random.normalvariate(mu, sigma)
-        self.correlate_values[name] = self.sigfig(f(self.roots[myroot]['value'] + epsilon))
+        self.correlate_values[name] = \
+            self.sigfig(f(self.roots[myroot]['value'] + epsilon))
     def new_root(self, name, low, high):
         pass #FIXME
     def sigfig(self, x, number_of_figures = 3):
