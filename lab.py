@@ -30,11 +30,13 @@ class LabDefinition:
         mu = 0
         f = self.correlate_functions[name]['function']
         how_messy = self.correlate_functions[name]['messy']
-        myroot = self.correlate_functions[name]['rootname']
-        sigma = (self.roots[myroot]['high'] - self.roots[myroot]['low']) \
-            / 2 * how_messy
-        epsilon = random.normalvariate(mu, sigma)
-        self.correlate_values[name] = f(self.roots[myroot]['value'] + epsilon)
+        arglist = []
+        for var in self.correlate_functions[name]['rootname']:
+            sigma = (self.roots[var]['high'] - self.roots[var]['low']) \
+                / 2 * how_messy
+            epsilon = random.normalvariate(mu, sigma)
+            arglist.append(self.roots[var]['value'] + epsilon)
+        self.correlate_values[name] = f(*arglist)
     def new_root(self, name, low, high): # definite public
         self.roots[name] = {'low':low, 'high':high}
         self.reset_root(name)
