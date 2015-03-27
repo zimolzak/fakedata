@@ -40,15 +40,19 @@ class LabDefinition:
         sigma = (self.roots[myroot]['high'] - self.roots[myroot]['low']) \
             / 2 * how_messy
         epsilon = random.normalvariate(mu, sigma)
-        self.correlate_values[name] = \
-            self.sigfig(f(self.roots[myroot]['value'] + epsilon))
+        self.correlate_values[name] = f(self.roots[myroot]['value'] + epsilon)
     def new_root(self, name, low, high):
         self.roots[name] = {'low':low, 'high':high}
         self.reset_root(name)
     def sigfig(self, x, number_of_figures = 3):
         return str(round(x, number_of_figures - 1 - int(math.log10(abs(x)))))
     def contents(self):
-        pass # FIXME
+        output = {}
+        for k, v in self.roots.iteritems():
+            output[k] = self.sigfig(v['value'])
+        for k, v in self.correlate_values.iteritems():
+            output[k] = self.sigfig(v)
+        return output
 
 #### Parameters
 messy = 0.4 # higher means worse correlation.
@@ -64,12 +68,13 @@ cbc.new_root('wbc', 4, 10)
 t = datetime.date(2015,1,1)
 
 labwriter = csv.writer(open('labs.csv', 'wb'))
-labwriter.writerow(["date", "hgb", "hct", "wbc"])
+keys_ordered = cbc.contents().keys()
+labwriter.writerow(["date"] + keys_ordered)
 for i in range(20):
-    hgb = cbc.roots['hgb']['value']
-    wbc = cbc.roots['wbc']['value']
-    hct = cbc.correlate_values['hct']
-    labwriter.writerow([str(t), hgb, hct, wbc])
+    vals_ordered = []
+    for k in keys_ordered:
+        vals_ordered.append(cbc.contents()[k])
+    labwriter.writerow([str(t)] + vals_ordered)
     # The update rules are below.
     dt = datetime.timedelta(int(random.expovariate(1.0 / avg_days)))
     t = t + dt
