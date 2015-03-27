@@ -23,7 +23,7 @@ Panel.new_root('glc', 70, 100)
 Panel.new_root('ag', 3, 11)
 def cl_func(na, ag, hco3):
     return na - ag - hco3
-Panel.new_correlate('cl', cl_func, ['na', 'ag', 'hco3'], how_messy=0)
+Panel.new_correlate('cl', cl_func, ['na', 'ag', 'hco3'])
 
 Panel.new_root("hgb", 12, 17)
 Panel.new_root('wbc', 4, 10)
@@ -31,6 +31,10 @@ Panel.new_root('plt', 150, 350)
 def hgb2hct(hgb):
     return 3 * hgb
 Panel.new_correlate('hct', hgb2hct, ['hgb'], how_messy=0.3)
+def mchc_func(hgb, hct):
+    return hgb / (hct / 100)
+Panel.new_correlate('mchc', mchc_func, ['hgb', 'hct'])
+
 
 t = datetime.date(2015,1,1)
 

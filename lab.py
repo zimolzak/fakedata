@@ -20,9 +20,9 @@ class LabDefinition:
                 random.normalvariate(0, midpoint * delta**2 * dt.days)
         for k in self.correlate_functions.keys():
             self.reset_correlate(k)
-    def new_correlate(self, name, f, rootname, how_messy): # definite public
+    def new_correlate(self, name, f, varlist, how_messy=0): # definite public
         self.correlate_functions[name] = \
-            {'function':f, 'rootname':rootname, 'messy':how_messy}
+            {'function':f, 'varlist':varlist, 'messy':how_messy}
         self.reset_correlate(name)
     def reset_correlate(self, name):
         # Takes main value, adds a little error to it, and stores f(x).
@@ -30,11 +30,15 @@ class LabDefinition:
         f = self.correlate_functions[name]['function']
         how_messy = self.correlate_functions[name]['messy']
         arglist = []
-        for var in self.correlate_functions[name]['rootname']:
-            sigma = (self.roots[var]['high'] - self.roots[var]['low']) \
-                / 2 * how_messy
-            epsilon = random.normalvariate(mu, sigma)
-            arglist.append(self.roots[var]['value'] + epsilon)
+        for var in self.correlate_functions[name]['varlist']:
+            if var in self.roots.keys():
+                sigma = (self.roots[var]['high'] - self.roots[var]['low']) \
+                    / 2 * how_messy
+                epsilon = random.normalvariate(mu, sigma)
+                arglist.append(self.roots[var]['value'] + epsilon)
+            else:
+                assert how_messy == 0
+                arglist.append(self.correlate_values[var])
         self.correlate_values[name] = f(*arglist)
     def new_root(self, name, low, high): # definite public
         self.roots[name] = {'low':low, 'high':high}
