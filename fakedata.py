@@ -30,18 +30,13 @@ class LabDefinition:
         self.correlate_functions[name] = {'function':f, 'messy':how_messy}
         self.reset_correlate(name)
     def reset_correlate(self, name):
+        # Takes main value, adds a little error to it, and stores f(x).
         mu = 0
         f = self.correlate_functions[name]['function']
         how_messy = self.correlate_functions[name]['messy']
         sigma = (self.high - self.low) / 2 * how_messy
         epsilon = random.normalvariate(mu, sigma)
-        self.correlate_values[name] = f(self.value + epsilon)
-    def correlate(self, f, how_messy):
-        # Takes x, adds a little error to it, and outputs f(x).
-        mu = 0
-        sigma = (self.high - self.low) / 2 * how_messy
-        epsilon = random.normalvariate(mu, sigma)
-        return self.sigfig(f(self.value + epsilon))
+        self.correlate_values[name] = self.sigfig(f(self.value + epsilon))
     def sigfig(self, x, number_of_figures = 3):
         return str(round(x, number_of_figures - 1 - int(math.log10(abs(x)))))
     def __repr__(self):
@@ -53,17 +48,15 @@ class LabDefinition:
             return ""
 
 #### Parameters
-hgb = LabDefinition("hgb", 12, 17)
-
 messy = 0.4 # higher means worse correlation.
 delta = 0.1 # brownian motion param, units lab/time^2. Hi=labile, lo=stable.
 avg_days = 90 # mean days between two lab measurements
 def hgb2hct(hgb):
     return 3 * hgb
 
-hgb.new_correlate('hct', hgb2hct, messy)
-
 ### Initial conditions
+hgb = LabDefinition("hgb", 12, 17)
+hgb.new_correlate('hct', hgb2hct, messy)
 t = datetime.date(2015,1,1)
 
 labwriter = csv.writer(open('labs.csv', 'wb'))
