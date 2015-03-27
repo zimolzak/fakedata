@@ -20,7 +20,7 @@ class LabDefinition:
         sigma = (self.roots[rootname]['low'] - self.roots[rootname]['high']) \
             / 2 * (how_sick + 1)
         self.roots[rootname]['value'] = random.normalvariate(mu, sigma)
-    def update(self, delta, dt):
+    def update(self, delta, dt): # definite public
         # dt is a timedelta object
         for k in self.roots.keys():
             midpoint = (self.roots[k]['low'] + self.roots[k]['high']) / 2
@@ -28,7 +28,7 @@ class LabDefinition:
                 random.normalvariate(0, midpoint * delta**2 * dt.days)
         for k in self.correlate_functions.keys():
             self.reset_correlate(k)
-    def new_correlate(self, name, f, rootname, how_messy):
+    def new_correlate(self, name, f, rootname, how_messy): # definite public
         self.correlate_functions[name] = \
             {'function':f, 'rootname':rootname, 'messy':how_messy}
         self.reset_correlate(name)
@@ -42,22 +42,33 @@ class LabDefinition:
             / 2 * how_messy
         epsilon = random.normalvariate(mu, sigma)
         self.correlate_values[name] = f(self.roots[myroot]['value'] + epsilon)
-    def new_root(self, name, low, high):
+    def new_root(self, name, low, high): # definite public
         self.roots[name] = {'low':low, 'high':high}
         self.reset_root(name)
     def sigfig(self, x, number_of_figures = 3):
         return str(round(x, number_of_figures - 1 - int(math.log10(abs(x)))))
-    def contents(self):
+    def contents(self, star = False): # definite public
         output = {}
-        for k, v in self.roots.iteritems():
-            output[k] = self.sigfig(v['value'])
+        if star:
+            for k, v in self.roots.iteritems():
+                output[k] = self.sigfig(v['value']) + self.star_if_abnormal(k)
+        else:
+            for k, v in self.roots.iteritems():
+                output[k] = self.sigfig(v['value'])
         for k, v in self.correlate_values.iteritems():
             output[k] = self.sigfig(v)
         return output
+    def star_if_abnormal(self, rootname):
+        if not (self.roots[rootname]['low'] \
+                    <= self.roots[rootname]['value'] \
+                    <= self.roots[rootname]['high']):
+            return " **"
+        else:
+            return ""
 
 #### Parameters
 messy = 0.3 # higher means worse correlation.
-delta = 0.05 # brownian motion param, units lab/time^2. Hi=labile, lo=stable.
+delta = 0.04 # brownian motion param, units 1/time^2. Hi=labile, lo=stable.
 avg_days = 90 # mean days between two lab measurements
 def hgb2hct(hgb):
     return 3 * hgb
@@ -75,7 +86,7 @@ labwriter.writerow(["date"] + keys_ordered)
 for i in range(20):
     vals_ordered = []
     for k in keys_ordered:
-        vals_ordered.append(cbc.contents()[k])
+        vals_ordered.append(cbc.contents(True)[k])
     labwriter.writerow([str(t)] + vals_ordered)
     # The update rules are below.
     dt = datetime.timedelta(int(random.expovariate(1.0 / avg_days)))
