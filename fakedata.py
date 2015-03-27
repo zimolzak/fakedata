@@ -10,14 +10,15 @@ import datetime
 
 class LabDefinition:
     def __init__(self, labname, low, high):
-        self.roots = {labname: {'low':low, 'high':high} }
-        self.reset_root(labname)
+        self.roots = {}
+        self.new_root(labname, low, high)
         self.correlate_values = {}
         self.correlate_functions = {}
     def reset_root(self, rootname, how_sick = 0): #may want this public
         assert 0 <= how_sick <= 1
         mu = (self.roots[rootname]['low'] + self.roots[rootname]['high']) / 2
-        sigma = (self.roots[rootname]['low'] - self.roots[rootname]['high']) / 2 * (how_sick + 1)
+        sigma = (self.roots[rootname]['low'] - self.roots[rootname]['high']) \
+            / 2 * (how_sick + 1)
         self.roots[rootname]['value'] = random.normalvariate(mu, sigma)
     def update(self, delta, dt):
         # dt is a timedelta object
@@ -42,7 +43,8 @@ class LabDefinition:
         self.correlate_values[name] = \
             self.sigfig(f(self.roots[myroot]['value'] + epsilon))
     def new_root(self, name, low, high):
-        pass #FIXME
+        self.roots[name] = {'low':low, 'high':high}
+        self.reset_root(name)
     def sigfig(self, x, number_of_figures = 3):
         return str(round(x, number_of_figures - 1 - int(math.log10(abs(x)))))
     def contents(self):
@@ -58,14 +60,16 @@ def hgb2hct(hgb):
 ### Initial conditions
 cbc = LabDefinition("hgb", 12, 17)
 cbc.new_correlate('hct', hgb2hct, 'hgb', messy)
+cbc.new_root('wbc', 4, 10)
 t = datetime.date(2015,1,1)
 
 labwriter = csv.writer(open('labs.csv', 'wb'))
-labwriter.writerow(["date", "hgb", "hct"])
+labwriter.writerow(["date", "hgb", "hct", "wbc"])
 for i in range(20):
     hgb = cbc.roots['hgb']['value']
+    wbc = cbc.roots['wbc']['value']
     hct = cbc.correlate_values['hct']
-    labwriter.writerow([str(t), hgb, hct])
+    labwriter.writerow([str(t), hgb, hct, wbc])
     # The update rules are below.
     dt = datetime.timedelta(int(random.expovariate(1.0 / avg_days)))
     t = t + dt
