@@ -13,11 +13,13 @@ class LabDefinition:
         self.labname=labname
         self.low=low
         self.high=high
+        self.set_random_initial(0)
     def set_random_initial(self, how_sick = 0):
         assert 0 <= how_sick <= 1
         mu = (self.low + self.high) / 2
         sigma = (self.low - self.high) / 2 * (how_sick + 1)
         self.value = random.normalvariate(mu, sigma)
+        self.correlates = {}
     def update(self, delta, dt):
         # dt is a timedelta object
         self.value = self.value + random.normalvariate(0, delta**2 * dt.days)
@@ -42,13 +44,11 @@ hgb = LabDefinition("hgb", 12, 17)
 
 messy = 0.4 # higher means worse correlation.
 delta = 0.1 # brownian motion param, units lab/time^2. Hi=labile, lo=stable.
-morbidity_const = 0
 avg_days = 90 # mean days between two lab measurements
 def hgb2hct(hgb):
     return 3 * hgb
 
 ### Initial conditions
-hgb.set_random_initial(morbidity_const)
 t = datetime.date(2015,1,1)
 
 labwriter = csv.writer(open('labs.csv', 'wb'))
