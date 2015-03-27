@@ -11,15 +11,14 @@ import datetime
 class LabDefinition:
     def __init__(self, labname, low, high):
         self.roots = {labname: {'low':low, 'high':high} }
-        self.reset_roots(0)
-    def reset_roots(self, how_sick = 0): #may want this public
-        assert 0 <= how_sick <= 1
-        for k, v in self.roots.iteritems():
-            mu = (v['low'] + v['high']) / 2
-            sigma = (v['low'] - v['high']) / 2 * (how_sick + 1)
-            self.roots[k]['value'] = random.normalvariate(mu, sigma)
+        self.reset_root(labname)
         self.correlate_values = {}
         self.correlate_functions = {}
+    def reset_root(self, rootname, how_sick = 0): #may want this public
+        assert 0 <= how_sick <= 1
+        mu = (self.roots[rootname]['low'] + self.roots[rootname]['high']) / 2
+        sigma = (self.roots[rootname]['low'] - self.roots[rootname]['high']) / 2 * (how_sick + 1)
+        self.roots[rootname]['value'] = random.normalvariate(mu, sigma)
     def update(self, delta, dt):
         # dt is a timedelta object
         for k in self.roots.keys():
@@ -46,6 +45,8 @@ class LabDefinition:
         pass #FIXME
     def sigfig(self, x, number_of_figures = 3):
         return str(round(x, number_of_figures - 1 - int(math.log10(abs(x)))))
+    def contents(self):
+        pass # FIXME
 
 #### Parameters
 messy = 0.4 # higher means worse correlation.
