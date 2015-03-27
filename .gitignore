@@ -1,6 +1,7 @@
 *.pyc
 *~
 *.csv
+!example.csv
 *.pdf
 *.ps
 *.png

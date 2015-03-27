@@ -34,7 +34,13 @@ Panel.new_correlate('hct', hgb2hct, ['hgb'], how_messy=0.3)
 def mchc_func(hgb, hct):
     return hgb / (hct / 100)
 Panel.new_correlate('mchc', mchc_func, ['hgb', 'hct'])
-
+Panel.new_root('mcv', 80, 100)
+def rbc_func(hct, mcv):
+    return 10 * hct / mcv
+Panel.new_correlate('rbc', rbc_func, ['hct', 'mcv'])
+def mch_func(hgb, rbc):
+    return 10 * hgb / rbc
+Panel.new_correlate('mch', mch_func, ['hgb', 'rbc'])
 
 t = datetime.date(2015,1,1)
 
