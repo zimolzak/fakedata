@@ -10,7 +10,7 @@ from lab import *
 
 #### Parameters
 messy = 0.3 # higher means worse correlation.
-delta = 0.04 # brownian motion param, units 1/time^2. Hi=labile, lo=stable.
+delta = 0.03 # brownian motion param, units 1/time^2. Hi=labile, lo=stable.
 avg_days = 90 # mean days between two lab measurements
 
 ### Initial conditions
@@ -18,7 +18,8 @@ avg_days = 90 # mean days between two lab measurements
 # cbc.new_correlate('hct', hgb2hct, 'hgb', messy) # lambda x: 3*x
 # cbc.new_root('wbc', 4, 10)
 # cbc.new_root('plt', 150, 350)
-BMP = LabDefinition("na", 136, 145)
+BMP = LabDefinition()
+BMP.new_root("na", 136, 145)
 BMP.new_root('k', 3.5, 5.0)
 BMP.new_root('hco3', 23, 28)
 BMP.new_root('bun', 8, 20)

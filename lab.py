@@ -2,9 +2,8 @@ import math
 import random
 
 class LabDefinition:
-    def __init__(self, labname, low, high):
+    def __init__(self):
         self.roots = {}
-        self.new_root(labname, low, high)
         self.correlate_values = {}
         self.correlate_functions = {}
     def reset_root(self, rootname, how_sick = 0): #may want this public
