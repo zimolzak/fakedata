@@ -23,8 +23,9 @@ class LabDefinition:
     def update(self, delta, dt):
         # dt is a timedelta object
         for k in self.roots.keys():
+            midpoint = (self.roots[k]['low'] + self.roots[k]['high']) / 2
             self.roots[k]['value'] = self.roots[k]['value'] + \
-                random.normalvariate(0, delta**2 * dt.days)
+                random.normalvariate(0, midpoint * delta**2 * dt.days)
         for k in self.correlate_functions.keys():
             self.reset_correlate(k)
     def new_correlate(self, name, f, rootname, how_messy):
@@ -55,8 +56,8 @@ class LabDefinition:
         return output
 
 #### Parameters
-messy = 0.4 # higher means worse correlation.
-delta = 0.1 # brownian motion param, units lab/time^2. Hi=labile, lo=stable.
+messy = 0.3 # higher means worse correlation.
+delta = 0.05 # brownian motion param, units lab/time^2. Hi=labile, lo=stable.
 avg_days = 90 # mean days between two lab measurements
 def hgb2hct(hgb):
     return 3 * hgb
@@ -65,6 +66,7 @@ def hgb2hct(hgb):
 cbc = LabDefinition("hgb", 12, 17)
 cbc.new_correlate('hct', hgb2hct, 'hgb', messy)
 cbc.new_root('wbc', 4, 10)
+cbc.new_root('plt', 150, 350)
 t = datetime.date(2015,1,1)
 
 labwriter = csv.writer(open('labs.csv', 'wb'))
