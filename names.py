@@ -34,9 +34,33 @@ for i, cutpoint in enumerate(Age_cumu_p[gender]):
 extradays = random.randint(0,364)
 dob = datetime.date(2015, 3, 30) - datetime.timedelta(age * 365 + extradays)
 
+def quantile2text(quantile, filename, q_column, t_column, split_text):
+    file = open(filename, 'r')
+    found_name = ""
+    names_to_pick = []
+    matching_proportion = 0
+    while found_name == "":
+        fields = file.readline().split(split_text)
+        name = fields[t_column]
+        cumu_p = float(fields[q_column])
+        if quantile <= cumu_p and matching_proportion == 0:
+            names_to_pick.append(name)
+            matching_proportion = cumu_p
+            continue
+        elif quantile <= cumu_p and matching_proportion == cumu_p:
+            names_to_pick.append(name)
+            continue
+        elif quantile > cumu_p:
+            continue
+        else:
+            assert quantile <= cumu_p and matching_proportion < cumu_p
+            found_name = random.choice(names_to_pick).capitalize()
+    return found_name
+
 full_name = []
 for filename in ('dist.all.last', firstname):
     r = random.uniform(0, 90.483)
+    #### quantile2text(r, filename, 2, 0, None)
     file = open(filename, 'r')
     found_name = ""
     names_to_pick = []
@@ -57,6 +81,7 @@ for filename in ('dist.all.last', firstname):
         else:
             assert r <= cumu_p and matching_proportion < cumu_p
             found_name = random.choice(names_to_pick).capitalize()
+    ####
     full_name.append(found_name)
 
 full_name.append(gender)
