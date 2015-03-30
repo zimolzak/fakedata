@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import random
 import datetime
+import csv
 
 Proportion_Male = 0.927
 Age_ranges = [18, 35, 55, 65, 75, 91]
@@ -63,8 +64,25 @@ for filename in ('dist.all.last', firstname):
 
 zip = quantile2text(random.uniform(0,1), 'zipcodes.csv', 2, 0, ",").split()[1]
 
+zipcode_iterator = csv.reader(open("zip_code_database.csv", 'r'),
+                              delimiter=',', quotechar='"')
+city = ""
+state = ""
+for fields in zipcode_iterator:
+    if zip != fields[0]:
+        continue
+    else:
+        city = fields[2]
+        state = fields[5]
+        break
+
+addr = str(random.randint(10,9999)) + " " + random.choice(["Elm", "Pine", "Maple", "State", "Main"]) + " " + random.choice(["St", "Ln", "Blvd"])
+
 full_name.append(gender)
 full_name.append(age)
 full_name.append(dob)
+full_name.append(addr)
+full_name.append(city)
+full_name.append(state)
 full_name.append(zip)
 print full_name
