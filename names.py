@@ -64,8 +64,10 @@ for filename in ('dist.all.last', firstname):
 
 zip = quantile2text(random.uniform(0,1), 'zipcodes.csv', 2, 0, ",").split()[1]
 
+# source: http://www.unitedstateszipcodes.org/zip-code-database/
 zipcode_iterator = csv.reader(open("zip_code_database.csv", 'r'),
                               delimiter=',', quotechar='"')
+
 city = ""
 state = ""
 for fields in zipcode_iterator:
@@ -78,6 +80,23 @@ for fields in zipcode_iterator:
 
 addr = str(random.randint(10,9999)) + " " + random.choice(["Elm", "Pine", "Maple", "State", "Main"]) + " " + random.choice(["St", "Ln", "Blvd"])
 
+phone = ""
+fallback_npa = ""
+npa_iterator = csv.reader(open("npa_city_state.csv", 'r'),
+                              delimiter=',', quotechar='"')
+for npa, test_city, test_state in npa_iterator:
+    if test_state == state:
+        fallback_npa = str(npa)
+    if test_state == state and test_city == city:
+        phone = str(npa) + "-555-" + str(random.randint(0,9)) \
+            + str(random.randint(0,9)) + str(random.randint(0,9)) \
+            + str(random.randint(0,9))
+        break
+if phone == "":
+    phone = fallback_npa + "-555-" + str(random.randint(0,9)) \
+        + str(random.randint(0,9)) + str(random.randint(0,9)) \
+        + str(random.randint(0,9))
+
 full_name.append(gender)
 full_name.append(age)
 full_name.append(dob)
@@ -85,4 +104,5 @@ full_name.append(addr)
 full_name.append(city)
 full_name.append(state)
 full_name.append(zip)
+full_name.append(phone)
 print full_name
