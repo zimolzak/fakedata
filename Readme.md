@@ -3,8 +3,6 @@ Fake Data from Scratch
 
 Andrew Zimolzak, MD, MMSc
 
-2015-03-17
-
 Generate structured medical data from "first principles."
 
 Introduction
@@ -22,18 +20,7 @@ Usage:
 
     ./fakedata.py
 
-Outputs a CSV file of lab data. Fields are: date the lab was
-collected, hemoglobin, hematocrit, and a flag to indicate normal
-versus abnormal.
-
-Example:
-
-    date,hgb,hct,abnl
-    2015-01-01,11.8,38.8, **
-    2015-02-20,11.8,39.5, **
-    2015-09-26,12.9,37.8,
-    2015-10-18,12.8,38.2,
-    2016-04-09,14.0,43.0,
+Outputs a CSV file of lab data. 
 
 Current features
 --------
@@ -58,8 +45,9 @@ Current features
 
 To do
 --------
+
 * Patient name, clearly denoted as fake: something like Donaldzz
-Martinzz, or Anthonyfake Walkerfake.
+  Martinzz, or Anthonyfake Walkerfake.
 
 * Fake contact details such as 315 Pinefake St, Davidsonvillefake MD
   21035. 410-555-0978. anthonyfake.walkerfake@gmail.com.

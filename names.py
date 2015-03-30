@@ -1,13 +1,29 @@
 #!/usr/bin/env python
 import random
 
-Proportion_Male = 0.8
+Proportion_Male = 0.927
+Age_ranges = [18, 35, 55, 65, 75, 91]
+Age_cumu_p = {"M":[0.071, 0.306, 0.541, 0.765, 1.1], \
+                     "F":[0.210, 0.667, 0.834, 0.903, 1.1]}
+
+gender = ""
 if random.uniform(0,1) > Proportion_Male:
     firstname = 'dist.female.first'
     gender = "F"
 else:
     firstname = 'dist.male.first'
     gender = "M"
+
+age = None
+age_quantile = random.uniform(0,1)
+for i, cutpoint in enumerate(Age_cumu_p[gender]):
+    if age_quantile > cutpoint:
+        continue
+    else:
+        age = random.randint(Age_ranges[i], Age_ranges[i+1] - 1)
+        break
+
+
 
 full_name = []
 for filename in ('dist.all.last', firstname):
@@ -35,4 +51,5 @@ for filename in ('dist.all.last', firstname):
     full_name.append(found_name)
 
 full_name.append(gender)
+full_name.append(age)
 print full_name
