@@ -20,7 +20,11 @@ Usage:
 
     ./fakedata.py
 
-Outputs a CSV file of lab data. 
+Outputs a CSV file of lab data.
+
+    ./names.py
+
+Prints demographics to standard output.
 
 Current features
 --------
@@ -43,14 +47,33 @@ Current features
   and how much time has passed since then. In detail, the trend of
   labs over time is modeled as Brownian motion.
 
+* Patient name. First and last names reflect the true distribution of
+  names in the US. (But not the joint distribution of first+last, so
+  you can get some ethnically unlikely first+last name pairs like
+  Ahmed Krzyzewski.)
+
+* Fake contact details such as 315 Pine St, Davidsonville MD 21035.
+  410-555-0978. ZIP code of residence simulates the real population
+  distribution of the US (all citizens, not just veterans). ZIP is
+  decoded to a real city name. Area code is often correct to the level
+  of city; always correct by state.
+
+* Which labs: CBC (currently 8 numbers), BMP (about 8 numbers).
+
+* Age, gender. These two variables simulate the *joint* probability
+  distribution of age & gender in US veterans.
+
 To do
 --------
 
-* Patient name, clearly denoted as fake: something like Donaldzz
-  Martinzz, or Anthonyfake Walkerfake.
+* WBC differential
 
-* Fake contact details such as 315 Pinefake St, Davidsonvillefake MD
-  21035. 410-555-0978. anthonyfake.walkerfake@gmail.com.
+* Calcium
+
+* limits on Brownian motion so it can't get absurd or negative
+  numbers, K of 25, Hct of 109, etc.
+
+* Clearly denote the demographics as fake.
 
 * Specific diagnosis.
 
@@ -59,12 +82,9 @@ To do
 
 * Names of meds you've received for cancer.
 
-* Which labs: CBC (about 14 numbers), BMP (about 8 numbers).
-
 * What level of consent for Precision Oncology.
-
-* Age, gender.
 
 * Era of military service.
 
 * Work on code, obviously, with better data structures / classes.
+  Refactor names.py a bit.
