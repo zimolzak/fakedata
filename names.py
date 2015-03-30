@@ -30,7 +30,6 @@ for i, cutpoint in enumerate(Age_cumu_p[gender]):
     else:
         age = random.randint(Age_ranges[i], Age_ranges[i+1] - 1)
         break
-
 extradays = random.randint(0,364)
 dob = datetime.date(2015, 3, 30) - datetime.timedelta(age * 365 + extradays)
 
@@ -60,31 +59,12 @@ def quantile2text(quantile, filename, q_column, t_column, split_text):
 full_name = []
 for filename in ('dist.all.last', firstname):
     r = random.uniform(0, 90.483)
-    #### quantile2text(r, filename, 2, 0, None)
-    file = open(filename, 'r')
-    found_name = ""
-    names_to_pick = []
-    matching_proportion = 0
-    while found_name == "":
-        fields = file.readline().split()
-        name = fields[0]
-        [p, cumu_p, rank] = map(float, fields[1:])
-        if r <= cumu_p and matching_proportion == 0:
-            names_to_pick.append(name)
-            matching_proportion = cumu_p
-            continue
-        elif r <= cumu_p and matching_proportion == cumu_p:
-            names_to_pick.append(name)
-            continue
-        elif r > cumu_p:
-            continue
-        else:
-            assert r <= cumu_p and matching_proportion < cumu_p
-            found_name = random.choice(names_to_pick).capitalize()
-    ####
-    full_name.append(found_name)
+    full_name.append(quantile2text(r, filename, 2, 0, None))
+
+zip = quantile2text(random.uniform(0,1), 'zipcodes.csv', 2, 0, ",").split()[1]
 
 full_name.append(gender)
 full_name.append(age)
 full_name.append(dob)
+full_name.append(zip)
 print full_name
