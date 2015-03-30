@@ -1,16 +1,15 @@
 #!/usr/bin/env python
 import random
 
-gender = "M"
-
+Proportion_Male = 0.8
+if random.uniform(0,1) > Proportion_Male:
+    firstname = 'dist.female.first'
+    gender = "F"
+else:
+    firstname = 'dist.male.first'
+    gender = "M"
 
 full_name = []
-assert gender == "M" or gender == "F"
-if gender == "M":
-    firstname = 'dist.male.first'
-elif gender=="F":
-    firstname = 'dist.female.first'
-
 for filename in ('dist.all.last', firstname):
     r = random.uniform(0, 90.483)
     file = open(filename, 'r')
@@ -35,4 +34,5 @@ for filename in ('dist.all.last', firstname):
             found_name = random.choice(names_to_pick).capitalize()
     full_name.append(found_name)
 
+full_name.append(gender)
 print full_name
