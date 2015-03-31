@@ -14,13 +14,11 @@ avg_days = 90 # mean days between two lab measurements
 
 ### Initial conditions
 Panel = LabDefinition()
-Panel.new_root("na", 136, 145)
-Panel.new_root('k', 3.5, 5.0)
-Panel.new_root('hco3', 23, 28)
-Panel.new_root('bun', 8, 20)
-Panel.new_root('cr', 0.7, 1.3)
-Panel.new_root('glc', 70, 100)
-Panel.new_root('ag', 3, 11)
+
+bmp_lines = csv.reader(open("bmp_ranges.csv", 'r'),
+                       delimiter=',', quotechar='"')
+for fields in bmp_lines:
+    Panel.new_root(fields[0], float(fields[2]), float(fields[3]))
 def cl_func(na, ag, hco3):
     return na - ag - hco3
 Panel.new_correlate('cl', cl_func, ['na', 'ag', 'hco3'])
