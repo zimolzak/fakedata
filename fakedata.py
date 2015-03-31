@@ -23,16 +23,16 @@ def cl_func(na, ag, hco3):
     return na - ag - hco3
 Panel.new_correlate('cl', cl_func, ['na', 'ag', 'hco3'])
 
-Panel.new_root("hgb", None, 12, 17, None)
-Panel.new_root('wbc', None, 4, 10, None)
-Panel.new_root('plt', None, 150, 350, None)
+Panel.new_root("hgb", None, 12, 17, float('inf'))
+Panel.new_root('wbc', None, 4, 10, float('inf'))
+Panel.new_root('plt', None, 150, 350, float('inf'))
 def hgb2hct(hgb):
     return 3 * hgb
 Panel.new_correlate('hct', hgb2hct, ['hgb'], how_messy=0.3)
 def mchc_func(hgb, hct):
     return hgb / (hct / 100)
 Panel.new_correlate('mchc', mchc_func, ['hgb', 'hct'])
-Panel.new_root('mcv', None, 80, 100, None)
+Panel.new_root('mcv', None, 80, 100, float('inf'))
 def rbc_func(hct, mcv):
     return 10 * hct / mcv
 Panel.new_correlate('rbc', rbc_func, ['hct', 'mcv'])

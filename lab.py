@@ -11,7 +11,12 @@ class LabDefinition:
         mu = (self.roots[rootname]['low'] + self.roots[rootname]['high']) / 2
         sigma = (self.roots[rootname]['low'] - self.roots[rootname]['high']) \
             / 2 * (how_sick + 1)
-        self.roots[rootname]['value'] = random.normalvariate(mu, sigma)
+        x = random.normalvariate(mu, sigma)
+        if x < self.roots[rootname]['hardlow']:
+            x = self.roots[rootname]['hardlow']
+        if x > self.roots[rootname]['hardhigh']:
+            x = self.roots[rootname]['hardhigh']
+        self.roots[rootname]['value'] = x
     def update(self, delta, dt): # public
         # dt is a timedelta object
         for k in self.roots.keys():
