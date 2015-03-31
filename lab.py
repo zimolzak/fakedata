@@ -6,6 +6,7 @@ class LabDefinition:
         self.roots = {}
         self.correlate_values = {}
         self.correlate_functions = {}
+        self.D = 0.75 # what distance to hardlow or hardhigh to move
     def reset_root(self, rootname, how_sick = 0):
         assert 0 <= how_sick <= 1
         mu = (self.roots[rootname]['low'] + self.roots[rootname]['high']) / 2
@@ -21,8 +22,13 @@ class LabDefinition:
         # dt is a timedelta object
         for k in self.roots.keys():
             midpoint = (self.roots[k]['low'] + self.roots[k]['high']) / 2
-            self.roots[k]['value'] = self.roots[k]['value'] + \
-                random.normalvariate(0, midpoint * delta**2 * dt.days)
+            change = random.normalvariate(0, midpoint * delta**2 * dt.days)
+            x = self.roots[k]['value']
+            if x + change < self.roots[k]['hardlow']:
+                change = self.D * (self.roots[k]['hardlow'] - x)
+            elif x + change > self.roots[k]['hardhigh']:
+                change = self.D * (self.roots[k]['hardhigh'] - x)
+            self.roots[k]['value'] = x + change
         for k in self.correlate_functions.keys():
             self.reset_correlate(k)
     def new_correlate(self, name, f, varlist, how_messy=0): # public
