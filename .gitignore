@@ -9,3 +9,4 @@ dist.*
 *.pl
 npanxx99.txt
 !bmp_ranges.csv
+!cbc_ranges.csv
