@@ -63,15 +63,15 @@ Current features
 * Age, gender. These two variables simulate the *joint* probability
   distribution of age & gender in US veterans.
 
-To do
---------
-
-* WBC differential
+* limits on Brownian motion so it can't get absurd or negative
+  numbers, K of 25, Hct of 109, etc.
 
 * Calcium
 
-* limits on Brownian motion so it can't get absurd or negative
-  numbers, K of 25, Hct of 109, etc.
+* WBC differential
+
+To do
+--------
 
 * Clearly denote the demographics as fake.
 

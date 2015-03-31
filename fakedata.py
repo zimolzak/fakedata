@@ -30,11 +30,22 @@ def rbc_func(hct, mcv):
     return 10 * hct / mcv
 def mch_func(hgb, rbc):
     return 10 * hgb / rbc
+def neut2lymph(neut):
+    return random.uniform(0.66,0.72) * (100 - neut)
+def mono_func(n,l,e,b):
+    m = 100 - n - l - e - b
+    if m > 0:
+        return m
+    else:
+        return 0
+
 Panel.new_correlate('cl', cl_func, ['na', 'ag', 'hco3'])
 Panel.new_correlate('hct', hgb2hct, ['hgb'], how_messy=0.3)
 Panel.new_correlate('rbc', rbc_func, ['hct', 'mcv']) # must be after hct
 Panel.new_correlate('mchc', mchc_func, ['hgb', 'hct']) # must be after hct
 Panel.new_correlate('mch', mch_func, ['hgb', 'rbc']) # must be after rbc
+Panel.new_correlate('lymph', neut2lymph, ['neut'])
+Panel.new_correlate('mono', mono_func, ['neut', 'lymph', 'eos', 'baso'])
 
 t = datetime.date(2014,1,1) + datetime.timedelta(random.randint(0,365))
 
