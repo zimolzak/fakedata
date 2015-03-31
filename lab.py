@@ -6,13 +6,13 @@ class LabDefinition:
         self.roots = {}
         self.correlate_values = {}
         self.correlate_functions = {}
-    def reset_root(self, rootname, how_sick = 0): #may want this public
+    def reset_root(self, rootname, how_sick = 0):
         assert 0 <= how_sick <= 1
         mu = (self.roots[rootname]['low'] + self.roots[rootname]['high']) / 2
         sigma = (self.roots[rootname]['low'] - self.roots[rootname]['high']) \
             / 2 * (how_sick + 1)
         self.roots[rootname]['value'] = random.normalvariate(mu, sigma)
-    def update(self, delta, dt): # definite public
+    def update(self, delta, dt): # public
         # dt is a timedelta object
         for k in self.roots.keys():
             midpoint = (self.roots[k]['low'] + self.roots[k]['high']) / 2
@@ -20,7 +20,7 @@ class LabDefinition:
                 random.normalvariate(0, midpoint * delta**2 * dt.days)
         for k in self.correlate_functions.keys():
             self.reset_correlate(k)
-    def new_correlate(self, name, f, varlist, how_messy=0): # definite public
+    def new_correlate(self, name, f, varlist, how_messy=0): # public
         self.correlate_functions[name] = \
             {'function':f, 'varlist':varlist, 'messy':how_messy}
         self.reset_correlate(name)
@@ -40,12 +40,13 @@ class LabDefinition:
                 assert how_messy == 0
                 arglist.append(self.correlate_values[var])
         self.correlate_values[name] = f(*arglist)
-    def new_root(self, name, low, high): # definite public
-        self.roots[name] = {'low':low, 'high':high}
+    def new_root(self, name, hardlow, low, high, hardhigh): # public
+        self.roots[name] = {'hardlow':hardlow, 'low':low,
+                            'high':high, 'hardhigh':hardhigh}
         self.reset_root(name)
     def sigfig(self, x, number_of_figures = 3):
         return str(round(x, number_of_figures - 1 - int(math.log10(abs(x)))))
-    def contents(self, star = False): # definite public
+    def contents(self, star = False): # public
         output = {}
         if star:
             for k, v in self.roots.iteritems():

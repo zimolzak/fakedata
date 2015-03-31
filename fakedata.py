@@ -18,21 +18,21 @@ Panel = LabDefinition()
 bmp_lines = csv.reader(open("bmp_ranges.csv", 'r'),
                        delimiter=',', quotechar='"')
 for fields in bmp_lines:
-    Panel.new_root(fields[0], float(fields[2]), float(fields[3]))
+    Panel.new_root(fields[0], *map(float,fields[1:]))
 def cl_func(na, ag, hco3):
     return na - ag - hco3
 Panel.new_correlate('cl', cl_func, ['na', 'ag', 'hco3'])
 
-Panel.new_root("hgb", 12, 17)
-Panel.new_root('wbc', 4, 10)
-Panel.new_root('plt', 150, 350)
+Panel.new_root("hgb", None, 12, 17, None)
+Panel.new_root('wbc', None, 4, 10, None)
+Panel.new_root('plt', None, 150, 350, None)
 def hgb2hct(hgb):
     return 3 * hgb
 Panel.new_correlate('hct', hgb2hct, ['hgb'], how_messy=0.3)
 def mchc_func(hgb, hct):
     return hgb / (hct / 100)
 Panel.new_correlate('mchc', mchc_func, ['hgb', 'hct'])
-Panel.new_root('mcv', 80, 100)
+Panel.new_root('mcv', None, 80, 100, None)
 def rbc_func(hct, mcv):
     return 10 * hct / mcv
 Panel.new_correlate('rbc', rbc_func, ['hct', 'mcv'])
