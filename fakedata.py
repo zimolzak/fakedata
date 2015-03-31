@@ -22,21 +22,21 @@ for file in ["bmp_ranges.csv", "cbc_ranges.csv"]:
 
 def cl_func(na, ag, hco3):
     return na - ag - hco3
-Panel.new_correlate('cl', cl_func, ['na', 'ag', 'hco3'])
 def hgb2hct(hgb):
     return 3 * hgb
-Panel.new_correlate('hct', hgb2hct, ['hgb'], how_messy=0.3)
 def mchc_func(hgb, hct):
     return hgb / (hct / 100)
-Panel.new_correlate('mchc', mchc_func, ['hgb', 'hct'])
 def rbc_func(hct, mcv):
     return 10 * hct / mcv
-Panel.new_correlate('rbc', rbc_func, ['hct', 'mcv'])
 def mch_func(hgb, rbc):
     return 10 * hgb / rbc
-Panel.new_correlate('mch', mch_func, ['hgb', 'rbc'])
+Panel.new_correlate('cl', cl_func, ['na', 'ag', 'hco3'])
+Panel.new_correlate('hct', hgb2hct, ['hgb'], how_messy=0.3)
+Panel.new_correlate('rbc', rbc_func, ['hct', 'mcv']) # must be after hct
+Panel.new_correlate('mchc', mchc_func, ['hgb', 'hct']) # must be after hct
+Panel.new_correlate('mch', mch_func, ['hgb', 'rbc']) # must be after rbc
 
-t = datetime.date(2015,1,1)
+t = datetime.date(2014,1,1) + datetime.timedelta(random.randint(0,365))
 
 ### Loop and write
 labwriter = csv.writer(open('labs.csv', 'wb'))
