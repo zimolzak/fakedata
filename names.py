@@ -17,10 +17,10 @@ Age_cumu_p = {"M":[0.071, 0.306, 0.541, 0.765, 1.1], \
 
 gender = ""
 if random.uniform(0,1) > Proportion_Male:
-    firstname = 'dist.female.first'
+    firstname_file = 'dist.female.first'
     gender = "F"
 else:
-    firstname = 'dist.male.first'
+    firstname_file = 'dist.male.first'
     gender = "M"
 
 age = None
@@ -57,10 +57,10 @@ def quantile2text(quantile, filename, q_column, t_column, split_text):
             found_name = random.choice(names_to_pick).capitalize()
     return found_name
 
-full_name = []
-for filename in ('dist.all.last', firstname):
+demographics = []
+for filename in ('dist.all.last', firstname_file):
     r = random.uniform(0, 90.483)
-    full_name.append(quantile2text(r, filename, 2, 0, None))
+    demographics.append(quantile2text(r, filename, 2, 0, None) + "_fake")
 
 zip = quantile2text(random.uniform(0,1), 'zipcodes.csv', 2, 0, ",").split()[1]
 
@@ -97,12 +97,12 @@ if phone == "":
         + str(random.randint(0,9)) + str(random.randint(0,9)) \
         + str(random.randint(0,9))
 
-full_name.append(gender)
-full_name.append(age)
-full_name.append(dob)
-full_name.append(addr)
-full_name.append(city)
-full_name.append(state)
-full_name.append(zip)
-full_name.append(phone)
-print full_name
+demographics.append(gender)
+demographics.append(age)
+demographics.append(dob)
+demographics.append(addr)
+demographics.append(city)
+demographics.append(state)
+demographics.append(zip)
+demographics.append(phone)
+print demographics

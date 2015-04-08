@@ -70,10 +70,10 @@ Current features
 
 * WBC differential
 
+* Clearly denotes the demographics as fake.
+
 To do
 --------
-
-* Clearly denote the demographics as fake.
 
 * Specific diagnosis.
 
@@ -87,4 +87,3 @@ To do
 * Era of military service.
 
 * Work on code, obviously, with better data structures / classes.
-  Refactor names.py a bit.
