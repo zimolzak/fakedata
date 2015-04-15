@@ -74,16 +74,21 @@ Current features
 
 To do
 --------
+* Genes
+
+* Names of meds you've received for cancer. What types of meds (oral,
+  IV, targeted, traditional). For oral: fill dates & quantities.
 
 * Specific diagnosis.
 
 * More dates: of diagnosis, recruitment, upcoming appointments with
   oncology, rad-onc, chemotherapy.
 
-* Names of meds you've received for cancer.
+Lower priority to do
+--------
+* vital signs
 
 * What level of consent for Precision Oncology.
 
 * Era of military service.
 
-* Work on code, obviously, with better data structures / classes.
