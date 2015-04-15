@@ -61,7 +61,7 @@ class LabDefinition:
             return str(round(x, number_of_figures - 1 -
                              int(math.log10(abs(x)))))
         elif x == 0:
-            return 0
+            return str(0)
     def contents(self, star = False): # public
         output = {}
         if star:
