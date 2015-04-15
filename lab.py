@@ -1,5 +1,6 @@
 import math
 import random
+import csv
 
 class LabDefinition:
     def __init__(self):
@@ -79,3 +80,39 @@ class LabDefinition:
             return " **"
         else:
             return ""
+
+
+class CbcBmp(LabDefinition):
+    def __init__(self):
+        LabDefinition.__init__(self)
+        for file in ["bmp_ranges.csv", "cbc_ranges.csv"]:
+            lines = csv.reader(open(file, 'r'), delimiter=',')
+            for fields in lines:
+                self.new_root(fields[0], *map(float,fields[1:]))
+        
+        def cl_func(na, ag, hco3):
+            return na - ag - hco3
+        def hgb2hct(hgb):
+            return 3 * hgb
+        def mchc_func(hgb, hct):
+            return hgb / (hct / 100)
+        def rbc_func(hct, mcv):
+            return 10 * hct / mcv
+        def mch_func(hgb, rbc):
+            return 10 * hgb / rbc
+        def neut2lymph(neut):
+            return random.uniform(0.66,0.72) * (100 - neut)
+        def mono_func(n,l,e,b):
+            m = 100 - n - l - e - b
+            if m > 0:
+                return m
+            else:
+                return 0
+    
+        self.new_correlate('cl', cl_func, ['na', 'ag', 'hco3'])
+        self.new_correlate('hct', hgb2hct, ['hgb'], how_messy=0.3)
+        self.new_correlate('rbc', rbc_func, ['hct', 'mcv']) # must be after hct
+        self.new_correlate('mchc', mchc_func, ['hgb', 'hct']) # must be after hct
+        self.new_correlate('mch', mch_func, ['hgb', 'rbc']) # must be after rbc
+        self.new_correlate('lymph', neut2lymph, ['neut'])
+        self.new_correlate('mono', mono_func, ['neut', 'lymph', 'eos', 'baso'])
