@@ -10,3 +10,9 @@ dist.*
 npanxx99.txt
 !bmp_ranges.csv
 !cbc_ranges.csv
+!sample_datasets/dist.all.last
+!sample_datasets/dist.female.first
+!sample_datasets/dist.male.first
+!sample_datasets/npanxx99.txt
+!sample_datasets/zip_code_database.csv
+!sample_datasets/zipcodes.csv

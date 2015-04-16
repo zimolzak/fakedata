@@ -1,0 +1,10 @@
+zip,type,primary_city,acceptable_cities,unacceptable_cities,state,county,timezone,area_codes,latitude,longitude,world_region,country,decommissioned,estimated_population,notes
+00544,UNIQUE,Holtsville,,"Irs Service Center",NY,"Suffolk County",America/New_York,631,40.81,-73.04,NA,US,0,0,
+00601,STANDARD,Adjuntas,,"Colinas Del Gigante, Jard De Adjuntas, Urb San Joaquin",PR,Adjuntas,America/Puerto_Rico,787939,18.16,-66.72,NA,US,0,0,
+00602,STANDARD,Aguada,,"Alts De Aguada, Bo Guaniquilla, Comunidad Las Flores, Ext Los Robles, Urb Isabel La Catolica",PR,,,787,18.38,-67.18,NA,US,0,0,
+00603,STANDARD,Aguadilla,Ramey,"Bda Caban, Bda Esteves, Bo Borinquen, Bo Ceiba Baja, Ext El Prado, Ext Marbella, Repto Jimenez, Repto Juan Aguiar, Repto Lopez, Repto Tres Palmas, Sect Las Villas, Urb Borinquen, Urb El Prado, Urb Esteves, Urb Garcia, Urb Las Americas, Urb Las Casitas Cou",PR,Aguadilla,America/Puerto_Rico,787,18.43,-67.15,NA,US,0,0,
+00604,"PO BOX",Aguadilla,Ramey,,PR,,,,18.43,-67.15,NA,US,0,0,
+00605,"PO BOX",Aguadilla,,,PR,,,,18.43,-67.15,NA,US,0,0,
+00606,STANDARD,Maricao,,"Urb San Juan Bautista",PR,Maricao,America/Puerto_Rico,787939,18.18,-66.98,NA,US,0,0,
+00610,STANDARD,Anasco,,"Brisas De Anasco, Est De Valle Verde, Jard De Anasco, Paseo Del Valle, Repto Daguey, Urb San Antonio",PR,,,787,18.28,-67.14,NA,US,0,0,
+00611,"PO BOX",Angeles,,,PR,,,,18.28,-66.79,NA,US,0,0,"no NWS data, "
