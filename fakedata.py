@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # usage: ./fakedata.py
-# outputs labs.csv
+# outputs labs.csv patients.csv
 import csv
 import random
 import datetime

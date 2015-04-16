@@ -18,13 +18,20 @@ Code explanation
 
 Usage:
 
+    ./make_npa_city_state.sh
     ./fakedata.py
 
-Outputs a CSV file of lab data.
+Outputs CSV files of lab data and demographics.
 
-    ./names.py
+Input files:
 
-Prints demographics to standard output.
+* bmp_ranges.csv
+* cbc_ranges.csv
+* dist.all.last, dist.female.first, dist.male.first
+* npanxx99.txt
+* zipcodes.csv (population distribution by zip code, calc from census)
+* zip_code_database.csv (decode city, state. From
+  unitedstateszipcodes.org)
 
 Current features
 --------
@@ -58,17 +65,14 @@ Current features
   decoded to a real city name. Area code is often correct to the level
   of city; always correct by state.
 
-* Which labs: CBC (currently 8 numbers), BMP (about 8 numbers).
+* Which labs: CBC (currently 8 numbers), BMP (about 8 numbers),
+  Calcium, WBC differential.
 
 * Age, gender. These two variables simulate the *joint* probability
-  distribution of age & gender in US veterans.
+  distribution of age & gender in US veterans. 
 
 * limits on Brownian motion so it can't get absurd or negative
   numbers, K of 25, Hct of 109, etc.
-
-* Calcium
-
-* WBC differential
 
 * Clearly denotes the demographics as fake.
 
