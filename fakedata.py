@@ -6,6 +6,7 @@ import random
 import datetime
 from lab import *
 from names import *
+from genes import *
 # import schema # maybe later
 # import json # maybe later
 
@@ -26,12 +27,18 @@ patientwriter = csv.writer(open('patients.csv', 'wb'))
 patient_keys_ordered = test_patient.__dict__.keys()
 patientwriter.writerow(["id"] + patient_keys_ordered)
 
+test_tumor = Tumor()
+tumorwriter = csv.writer(open('tumor.csv', 'wb'))
+tumor_keys_ordered = test_tumor.__dict__.keys()
+tumorwriter.writerow(["id"] + tumor_keys_ordered)
+
 #### Generate patients
 
 for id in range(patients_to_generate):
 
     ### Initial conditions
     current_person = Patient()
+    current_tumor = Tumor()
     Panel = CbcBmp()
     t = datetime.date(2014,1,1) + datetime.timedelta(random.randint(0,365))
 
@@ -40,6 +47,12 @@ for id in range(patients_to_generate):
     for k in patient_keys_ordered:
         vals_ordered.append(current_person.__dict__[k])
     patientwriter.writerow([id] + vals_ordered)
+
+    ### Write to tumor table
+    vals_ordered = []
+    for k in tumor_keys_ordered:
+        vals_ordered.append(current_tumor.__dict__[k])
+    tumorwriter.writerow([id] + vals_ordered)
 
     ### Loop and write to lab table
     for i in range(labs_per_patient):
