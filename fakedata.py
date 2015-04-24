@@ -14,7 +14,7 @@ from genes import *
 delta = 0.03 # brownian motion param, units 1/time^2. Hi=labile, lo=stable.
 avg_days = 90 # mean days between two lab measurements
 labs_per_patient = 20
-patients_to_generate = 3
+patients_to_generate = 30
 
 #### Initialize CSV files with headers
 test_panel = CbcBmp()

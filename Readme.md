@@ -18,7 +18,7 @@ Code explanation
 
 Usage:
 
-    ./make_npa_city_state.sh
+    ./make_npa_city_state.sh    # needs to be run one time only
     ./fakedata.py
 
 Outputs CSV files of lab data and demographics.
@@ -32,9 +32,11 @@ Input files:
 * zipcodes.csv (population distribution by zip code, calc from census)
 * zip_code_database.csv (decode city, state. From
   unitedstateszipcodes.org)
+* histology.csv
 
 Current features
 --------
+
 * Given the reference range for a lab, code will generate values that
   are usually within this range (for healthy patients) or less likely
   to be within this range (for sick patients).
@@ -76,23 +78,26 @@ Current features
 
 * Clearly denotes the demographics as fake.
 
+* Genes
+
+* Specific diagnosis (really only histology).
+
 To do
 --------
-* Genes
 
 * Names of meds you've received for cancer. What types of meds (oral,
   IV, targeted, traditional). For oral: fill dates & quantities.
 
-* Specific diagnosis.
+Lower priority to do
+--------
+
+* Stage of cancer
 
 * More dates: of diagnosis, recruitment, upcoming appointments with
   oncology, rad-onc, chemotherapy.
 
-Lower priority to do
---------
 * vital signs
 
 * What level of consent for Precision Oncology.
 
 * Era of military service.
-
