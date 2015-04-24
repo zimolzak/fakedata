@@ -68,7 +68,7 @@ class Patient:
 
         self.fullname = []
         for filename in ('dist.all.last', firstname_file):
-            r = random.uniform(0, 90.483)
+            r = random.uniform(0, 90.483) # names file only covers 90.5%
             self.fullname.append(quantile2text(r, filename, 2, 0, None) \
                                      + "_fake")
 
