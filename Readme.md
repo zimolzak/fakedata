@@ -86,12 +86,17 @@ To do
 --------
 
 * Names of meds you've received for cancer. What types of meds (oral,
-  IV, targeted, traditional). For oral: fill dates & quantities.
+  IV, targeted, traditional). For oral: fill dates & quantities. Other
+  CA treatments (surg, rads)?
+
+* Social security number
+
+* Stage of cancer (kinda required in order to pick a random treatment)
 
 Lower priority to do
 --------
 
-* Stage of cancer
+* Response of cancer to treatment (progressing | stable | remitting)
 
 * More dates: of diagnosis, recruitment, upcoming appointments with
   oncology, rad-onc, chemotherapy.
