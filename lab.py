@@ -3,11 +3,13 @@ import random
 import csv
 
 class LabDefinition:
+    # Class variables; do not appear in vars() or __dict__.
+    roots = {} 
+    correlate_functions = {}
+    D = 0.75 # what distance to hardlow or hardhigh to move
+    correlate_values = {}
     def __init__(self):
-        self.roots = {}
-        self.correlate_values = {}
-        self.correlate_functions = {}
-        self.D = 0.75 # what distance to hardlow or hardhigh to move
+        pass
     def reset_root(self, rootname, how_sick = 0):
         assert 0 <= how_sick <= 1
         mu = (self.roots[rootname]['low'] + self.roots[rootname]['high']) / 2
@@ -18,18 +20,18 @@ class LabDefinition:
             x = self.roots[rootname]['hardlow']
         if x > self.roots[rootname]['hardhigh']:
             x = self.roots[rootname]['hardhigh']
-        self.roots[rootname]['value'] = x
+        exec("self." + rootname + " = x")
     def update(self, delta, dt): # public
         # dt is a timedelta object
         for k in self.roots.keys():
             midpoint = (self.roots[k]['low'] + self.roots[k]['high']) / 2
             change = random.normalvariate(0, midpoint * delta**2 * dt.days)
-            x = self.roots[k]['value']
+            x = eval("self." + k)
             if x + change < self.roots[k]['hardlow']:
                 change = self.D * (self.roots[k]['hardlow'] - x)
             elif x + change > self.roots[k]['hardhigh']:
                 change = self.D * (self.roots[k]['hardhigh'] - x)
-            self.roots[k]['value'] = x + change
+            exec("self." + k + " = x + change")
         for k in self.correlate_functions.keys():
             self.reset_correlate(k)
     def new_correlate(self, name, f, varlist, how_messy=0): # public
@@ -47,11 +49,11 @@ class LabDefinition:
                 sigma = (self.roots[var]['high'] - self.roots[var]['low']) \
                     / 2 * how_messy
                 epsilon = random.normalvariate(mu, sigma)
-                arglist.append(self.roots[var]['value'] + epsilon)
+                arglist.append(eval("self." + var + " + epsilon"))
             else:
                 assert how_messy == 0
-                arglist.append(self.correlate_values[var])
-        self.correlate_values[name] = f(*arglist)
+                arglist.append(eval("self." + var))
+        exec("self." + name + " = f(*arglist)")
     def new_root(self, name, hardlow, low, high, hardhigh): # public
         self.roots[name] = {'hardlow':hardlow, 'low':low,
                             'high':high, 'hardhigh':hardhigh}
@@ -75,7 +77,7 @@ class LabDefinition:
         return output
     def star_if_abnormal(self, rootname):
         if not (self.roots[rootname]['low'] \
-                    <= self.roots[rootname]['value'] \
+                    <= eval("self." + rootname) \
                     <= self.roots[rootname]['high']):
             return " **"
         else:
