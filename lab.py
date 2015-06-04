@@ -97,7 +97,7 @@ class LabDefinition:
 
 class CbcBmp(LabDefinition):
     def __init__(self):
-        LabDefinition.__init__(self)
+        LabDefinition.__init__(self) ## FIXME - needs 2 args
         for file in ["bmp_ranges.csv", "cbc_ranges.csv"]:
             lines = csv.reader(open(file, 'r'), delimiter=',')
             for fields in lines:
