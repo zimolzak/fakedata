@@ -21,7 +21,8 @@ Usage:
     ./make_npa_city_state.sh    # needs to be run one time only
     ./fakedata.py
 
-Outputs CSV files of lab data and demographics.
+Outputs CSV files of lab data, histology+genes, and demographics
+(labs.csv, patients.csv, tumor.csv).
 
 Input files:
 
@@ -95,6 +96,10 @@ To do
 
 Lower priority to do
 --------
+
+* Refactor to get more unified way to output CSV, fix up the lab.py
+  data structure. That is, simplify the __dict__ of objects of class
+  CbcBmp, so we don't have to use the contents() method.
 
 * Response of cancer to treatment (progressing | stable | remitting)
 
