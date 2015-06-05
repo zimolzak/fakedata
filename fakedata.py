@@ -59,7 +59,7 @@ for id in range(patients_to_generate):
     for i in range(labs_per_patient):
         vals_ordered = []
         for k in keys_ordered:
-            vals_ordered.append(Panel.contents(True)[k])
+            vals_ordered.append(vars(Panel)[k])
         labwriter.writerow([id, str(t)] + vals_ordered)
         # The update rules are below.
         dt = datetime.timedelta(int(random.expovariate(1.0 / avg_days)))

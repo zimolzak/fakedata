@@ -66,17 +66,6 @@ class LabDefinition:
                              int(math.log10(abs(x)))))
         elif x == 0:
             return str(0)
-    def contents(self, star = False): # public
-        output = {}
-        if star:
-            for k, v in self._roots.iteritems():
-                output[k] = self.sigfig(v['value']) + self.star_if_abnormal(k)
-        else:
-            for k, v in self._roots.iteritems():
-                output[k] = self.sigfig(v['value'])
-        for k, v in self._correlate_values.iteritems():
-            output[k] = self.sigfig(v)
-        return output
     def star_if_abnormal(self, rootname):
         if not (self._roots[rootname]['low'] \
                     <= self._roots[rootname]['value'] \
