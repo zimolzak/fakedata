@@ -76,14 +76,17 @@ Current features
   Calcium, WBC differential.
 
 * Age, gender. These two variables simulate the *joint* probability
-  distribution of age & gender in US veterans. 
+  distribution of age & gender in US veterans (all comers, not limited
+  to lung cancer patients, so you get some 29 year olds).
 
 * limits on Brownian motion so it can't get absurd or negative
   numbers, K of 25, Hct of 109, etc.
 
 * Clearly denotes the demographics as fake.
 
-* Genes
+* Genes. Somewhat realistic distributions of lung cancer mutations
+  based on published literature. Also plausible number of mutations
+  per tumor.
 
 * Specific diagnosis (really only histology).
 
@@ -118,7 +121,9 @@ Lower priority to do
 * make it messy in deeper ways (messy can mean more than just out of
   range results).
 
-* curl to automate download of 
+* curl to automate download of source data files like from census.gov
+
+* refactor better names for my classes and modules
 
 What does 'fraught' mean?
 --------
