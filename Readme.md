@@ -21,8 +21,8 @@ Usage:
     ./make_npa_city_state.sh    # needs to be run one time only
     ./fakedata.py
 
-Outputs CSV files of lab data, histology+genes, and demographics
-(labs.csv, patients.csv, tumor.csv).
+Outputs CSV files of demographics + histology + genes, and lab data
+(patients.csv, labs.csv).
 
 Input files:
 

@@ -22,26 +22,17 @@ labwriter = csv.writer(open('labs.csv', 'wb'))
 labwriter.writerow(["id", "date"] + public(vars(CbcBmp())).keys())
 
 patientwriter = csv.writer(open('patients.csv', 'wb'))
-patientwriter.writerow(["id"] + vars(Patient()).keys())
-
-tumorwriter = csv.writer(open('tumor.csv', 'wb'))
-tumorwriter.writerow(["id"] + vars(Tumor()).keys())
+patientwriter.writerow(["id"] + vars(Patient()).keys() + vars(Tumor()).keys())
 
 #### Generate patients
 
 for id in range(patients_to_generate):
+    patientwriter.writerow([id] + vars(Patient()).values() \
+                               + vars(Tumor()).values())
 
-    ### Initial conditions
+    ### Generate repeated labs over time
     Panel = CbcBmp()
     t = datetime.date(2014,1,1) + datetime.timedelta(random.randint(0,365))
-
-    ### Write to patient table
-    patientwriter.writerow([id] + vars(Patient()).values())
-
-    ### Write to tumor table
-    tumorwriter.writerow([id] + vars(Tumor()).values())
-
-    ### Loop and write to lab table
     for i in range(labs_per_patient):
         labwriter.writerow([id, str(t)] + public(vars(Panel)).values())
         # The update rules are below.
