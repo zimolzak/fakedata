@@ -8,10 +8,10 @@ Generate structured medical data from "first principles."
 Introduction
 --------
 
-What shoud we do when an algorithm, app, data model, etc. needs some
+What should we do when an algorithm, app, data model, etc. needs some
 data to practice on? One approach is to take real private health
 records and deidentify them, but we don't like this approach because
-it's fraught with problems.
+it's fraught with problems (see below).
 
 Code explanation
 ---------
@@ -26,14 +26,16 @@ Outputs CSV files of lab data, histology+genes, and demographics
 
 Input files:
 
-* bmp_ranges.csv
-* cbc_ranges.csv
+* bmp_ranges.csv (handcrafted)
+* cbc_ranges.csv (handcrafted)
 * dist.all.last, dist.female.first, dist.male.first
-* npanxx99.txt
-* zipcodes.csv (population distribution by zip code, calc from census)
-* zip_code_database.csv (decode city, state. From
+  (http://www2.census.gov/topics/genealogy/1990surnames/dist.male.first)
+* npanxx99.txt (honestly not sure where I downloaded this)
+* zipcodes.csv (population distribution by zip code, downloaded from
+  factfinder.census.gov and manually edited into this form. )
+* zip_code_database.csv (used to decode city, state. From
   unitedstateszipcodes.org)
-* histology.csv
+* histology.csv (handcrafted)
 
 Current features
 --------
@@ -97,10 +99,6 @@ To do
 Lower priority to do
 --------
 
-* Refactor to get more unified way to output CSV, fix up the lab.py
-  data structure. That is, simplify the __dict__ of objects of class
-  CbcBmp, so we don't have to use the contents() method.
-
 * Response of cancer to treatment (progressing | stable | remitting)
 
 * More dates: of diagnosis, recruitment, upcoming appointments with
@@ -111,3 +109,34 @@ Lower priority to do
 * What level of consent for Precision Oncology.
 
 * Era of military service.
+
+* consider splitting out one lab per line. (id=0, date=2014-04-04,
+  lab=hgb, val=10.2)
+
+* make it messy in deeper ways (messy can mean more than just out of
+  range results).
+
+* curl to automate download of 
+
+What does 'fraught' mean?
+--------
+
+Here is my argument for why we may want fake data from scratch rather
+than deidentified real data.
+
+First: 45 CFR 164.514 describes two ways in which covered entities may
+classify information as not individually identifiable. (A.) A person
+with knowledge of statistical means for "rendering information not
+individually identifiable" must determine that the reidentification
+risk "is very small." (B.) The identifiers that 45 CFR specifies must
+be removed.
+
+Second: Erika Holmberg’s notes on data security say "MAVERIC has not
+previously certified datasets as de-identified."
+
+Third: Because of the first two points, I am not sure that it is
+enough to do small tinkering with dates and/or lab values. 
+
+Fourth: Data from scratch is what Vick, Ned, and I thought we would
+try to start with, because of all these regulatory and statistical
+issues. Ultimately it depends what works for Cytolon.
