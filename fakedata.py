@@ -7,6 +7,7 @@ import datetime
 from lab import *
 from names import *
 from genes import *
+from dict_csv_tools import *
 # import schema # maybe later
 # import json # maybe later
 
@@ -19,17 +20,17 @@ patients_to_generate = 30
 #### Initialize CSV files with headers
 test_panel = CbcBmp()
 labwriter = csv.writer(open('labs.csv', 'wb'))
-keys_ordered = test_panel.contents().keys()
+keys_ordered = public(vars(test_panel)).keys()
 labwriter.writerow(["id", "date"] + keys_ordered)
 
 test_patient = Patient()
 patientwriter = csv.writer(open('patients.csv', 'wb'))
-patient_keys_ordered = test_patient.__dict__.keys()
+patient_keys_ordered = vars(test_patient).keys()
 patientwriter.writerow(["id"] + patient_keys_ordered)
 
 test_tumor = Tumor()
 tumorwriter = csv.writer(open('tumor.csv', 'wb'))
-tumor_keys_ordered = test_tumor.__dict__.keys()
+tumor_keys_ordered = vars(test_tumor).keys()
 tumorwriter.writerow(["id"] + tumor_keys_ordered)
 
 #### Generate patients
