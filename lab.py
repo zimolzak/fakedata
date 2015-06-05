@@ -9,6 +9,17 @@ class LabDefinition:
         self._correlate_functions = {}
         self._D = 0.75 # what distance to hardlow or hardhigh to move
         self._star = star
+    def new_root(self, name, hardlow, low, high, hardhigh): # public
+        """Add a new root to the lab panel.
+
+        name is a string for naming the new root. low and high
+        describe the lab's normal range, a.k.a. reference range.
+        hardlow and hardhigh describe limits beyond which the lab is
+        NEVER allowed to go.
+        """
+        self._roots[name] = {'hardlow':hardlow, 'low':low,
+                            'high':high, 'hardhigh':hardhigh}
+        self.reset_root(name)
     def reset_root(self, rootname, how_sick = 0):
         """Give rootname a new value, chosen from a normal distribution,
         independent of any prior values. how_sick ranges from 0 to 1.
@@ -26,26 +37,6 @@ class LabDefinition:
             x = self._roots[rootname]['hardhigh']
         self._roots[rootname]['value'] = x
         self.assign_pretty_print(rootname)
-    def update(self, delta, dt): # public
-        """Update all roots and correlates to value number N+1, based on value
-        number N and a certain time interval. delta is a Brownian
-        motion parameter. dt is a timedelta object.
-
-        After initial setup of roots and correlates, this is typically
-        the only method that is called.
-        """
-        for k in self._roots.keys():
-            midpoint = (self._roots[k]['low'] + self._roots[k]['high']) / 2
-            change = random.normalvariate(0, midpoint * delta**2 * dt.days)
-            x = self._roots[k]['value']
-            if x + change < self._roots[k]['hardlow']:
-                change = self._D * (self._roots[k]['hardlow'] - x)
-            elif x + change > self._roots[k]['hardhigh']:
-                change = self._D * (self._roots[k]['hardhigh'] - x)
-            self._roots[k]['value'] = x + change
-            self.assign_pretty_print(k)
-        for k in self._correlate_functions.keys():
-            self.reset_correlate(k)
     def new_correlate(self, name, f, varlist, how_messy=0): # public
         """Add a new correlate to the lab panel.
 
@@ -77,17 +68,26 @@ class LabDefinition:
                 arglist.append(self._correlate_values[var])
         self._correlate_values[name] = f(*arglist)
         self.assign_pretty_print(name)
-    def new_root(self, name, hardlow, low, high, hardhigh): # public
-        """Add a new root to the lab panel.
+    def update(self, delta, dt): # public
+        """Update all roots and correlates to value number N+1, based on value
+        number N and a certain time interval. delta is a Brownian
+        motion parameter. dt is a timedelta object.
 
-        name is a string for naming the new root. low and high
-        describe the lab's normal range, a.k.a. reference range.
-        hardlow and hardhigh describe limits beyond which the lab is
-        NEVER allowed to go.
+        After initial setup of roots and correlates, this is typically
+        the only method that is called.
         """
-        self._roots[name] = {'hardlow':hardlow, 'low':low,
-                            'high':high, 'hardhigh':hardhigh}
-        self.reset_root(name)
+        for k in self._roots.keys():
+            midpoint = (self._roots[k]['low'] + self._roots[k]['high']) / 2
+            change = random.normalvariate(0, midpoint * delta**2 * dt.days)
+            x = self._roots[k]['value']
+            if x + change < self._roots[k]['hardlow']:
+                change = self._D * (self._roots[k]['hardlow'] - x)
+            elif x + change > self._roots[k]['hardhigh']:
+                change = self._D * (self._roots[k]['hardhigh'] - x)
+            self._roots[k]['value'] = x + change
+            self.assign_pretty_print(k)
+        for k in self._correlate_functions.keys():
+            self.reset_correlate(k)
     def sigfig(self, x, number_of_figures = 3):
         """Take a float and return a string with the given number of
         significant figures.
