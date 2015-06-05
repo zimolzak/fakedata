@@ -20,6 +20,8 @@ Usage:
 
     ./make_npa_city_state.sh    # needs to be run one time only
     ./fakedata.py
+    ./make_sample_datasets.sh
+    ./makepdf.sh
 
 Outputs CSV files of demographics + histology + genes, and lab data
 (patients.csv, labs.csv).

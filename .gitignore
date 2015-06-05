@@ -16,4 +16,6 @@ npanxx99.txt
 !sample_datasets/npanxx99.txt
 !sample_datasets/zip_code_database.csv
 !sample_datasets/zipcodes.csv
+!sample_datasets/patients.csv
+!sample_datasets/labs.csv
 !histology.csv
