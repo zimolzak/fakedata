@@ -7,6 +7,7 @@ import datetime
 from lab import *
 from names import *
 from genes import *
+from dict_csv_tools import *
 # import schema # maybe later
 # import json # maybe later
 
@@ -19,7 +20,7 @@ patients_to_generate = 30
 #### Initialize CSV files with headers
 test_panel = CbcBmp()
 labwriter = csv.writer(open('labs.csv', 'wb'))
-keys_ordered = vars(test_panel).keys()
+keys_ordered = public(vars(test_panel)).keys()
 labwriter.writerow(["id", "date"] + keys_ordered)
 
 test_patient = Patient()

@@ -3,7 +3,7 @@ import random
 import csv
 
 class LabDefinition:
-    def __init__(self, star):
+    def __init__(self, star=True):
         self._roots = {}
         self._correlate_values = {}
         self._correlate_functions = {}
@@ -96,8 +96,8 @@ class LabDefinition:
         exec("self." + labname + " = '" + str + "'")
 
 class CbcBmp(LabDefinition):
-    def __init__(self):
-        LabDefinition.__init__(self) ## FIXME - needs 2 args
+    def __init__(self, star=True):
+        LabDefinition.__init__(self, star)
         for file in ["bmp_ranges.csv", "cbc_ranges.csv"]:
             lines = csv.reader(open(file, 'r'), delimiter=',')
             for fields in lines:
