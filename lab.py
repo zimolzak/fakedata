@@ -3,7 +3,39 @@ import random
 import csv
 
 class LabDefinition:
+    """A generic medical laboratory panel that generates fake data with
+    realistic statistical properties.
+
+    Features include: reference ranges, relationships between labs,
+    updating labs based on Brownian motion, limits on lab values so it
+    can't get absurd numbers.
+
+    Important terminology: A lab that doesn't depend on any others is
+    called a ROOT. A lab that is calculated from others is called a
+    CORRELATE.
+
+    Internal representaion is that the _roots, _correlate_functions,
+    and _correlate_values are dictionaries. Furthermore, _roots and
+    _correlate_functions have further dictionaries nested inside them.
+
+    Example structure:
+
+    object -+- roots --- hgb -+- hardlow  : 5
+            |                 |- low      : 12
+            |                 |- high     : 17
+            |                 |- hardhigh : 23
+            |                 +- value    : 13.142341235
+            |- correlate_functions --- hct -+- function : <function at 0xff>
+            |                               |- varlist  : ['hgb']
+            |                               +- messy    : 0.3
+            |- correlate_values --- hct : 39.12467893
+            |- D    : 0.75
+            |- star : True
+            |- hgb  : '13.1'
+            +- hct  : '39.1'
+    """
     def __init__(self, star=True):
+        """star parameter determines whether to star labs if abnormal."""
         self._roots = {}
         self._correlate_values = {}
         self._correlate_functions = {}
@@ -98,7 +130,9 @@ class LabDefinition:
         elif x == 0:
             return str(0)
     def star_if_abnormal(self, rootname):
-        """Return two stars if the given root is outside its normal range."""
+        """Return two stars if the given root is outside its normal range.
+        Currently only works for roots, not for correlates.
+        """
         if not (self._roots[rootname]['low'] \
                     <= self._roots[rootname]['value'] \
                     <= self._roots[rootname]['high']):
@@ -120,7 +154,12 @@ class LabDefinition:
         exec("self." + labname + " = '" + str + "'")
 
 class CbcBmp(LabDefinition):
+    """A collection (panel) of fake medical laboratory values, comprising
+    a complete blood count (CBC) plus a basic metabolic profile (BMP).
+    Updates over time to the values are modeled as Brownian motion.
+    """
     def __init__(self, star=True):
+        """star parameter determines whether to star labs if abnormal."""
         LabDefinition.__init__(self, star)
         for file in ["bmp_ranges.csv", "cbc_ranges.csv"]:
             lines = csv.reader(open(file, 'r'), delimiter=',')
