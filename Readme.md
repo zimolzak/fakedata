@@ -93,21 +93,32 @@ Current features
 To do
 --------
 
-* Names of meds you've received for cancer. What types of meds (oral,
-  IV, targeted, traditional). For oral: fill dates & quantities. Other
-  CA treatments (surg, rads)?
+* Stage of cancer (kinda required in order to pick a random
+  treatment). Should be _number one priority._
 
-* Social security number
+* ever received platinum containing chemo
 
-* Stage of cancer (kinda required in order to pick a random treatment)
+* failed first line treatment
+
+* date of diagnosis
 
 Lower priority to do
 --------
 
-* Response of cancer to treatment (progressing | stable | remitting)
+* which vendor ran your genotype
 
-* More dates: of diagnosis, recruitment, upcoming appointments with
-  oncology, rad-onc, chemotherapy.
+* Names of meds you've received for cancer. What types of meds (oral,
+  IV, targeted, traditional). For oral: fill dates & quantities. Other
+  CA treatments (surg, rads)? [fancier version of "ever received
+  platinum containing chemo"]
+
+* Social security number
+
+* Response of cancer to treatment (progressing | stable | remitting).
+  fancier version of "failed first line treatment"]
+
+* More dates: recruitment, upcoming appointments with oncology,
+  rad-onc, chemotherapy.
 
 * vital signs
 
