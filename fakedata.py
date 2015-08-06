@@ -31,7 +31,7 @@ for id in range(patients_to_generate):
                                + vars(Tumor()).values())
 
     ### Generate repeated labs over time
-    Panel = CbcBmp()
+    Panel = CbcBmp(star=False)
     t = datetime.date(2014,1,1) + datetime.timedelta(random.randint(0,365))
     for i in range(labs_per_patient):
         labwriter.writerow([id, str(t)] + public(vars(Panel)).values())
