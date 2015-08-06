@@ -11,7 +11,8 @@ def quantile2text(quantile, filename, q_column, t_column, split_text):
     while found_name == "":
         fields = file.readline().split(split_text)
         name = fields[t_column]
-        cumu_p = float(fields[q_column])
+        if fields[0] != '': # catch extra newline
+            cumu_p = float(fields[q_column])
         if quantile <= cumu_p and matching_proportion == 0:
             names_to_pick.append(name)
             matching_proportion = cumu_p

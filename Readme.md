@@ -90,11 +90,13 @@ Current features
 
 * Specific diagnosis (really only histology).
 
+* Stage of cancer including rough idea of T/N/M.
+
 To do
 --------
 
-* Stage of cancer (kinda required in order to pick a random
-  treatment). Should be _number one priority._
+* Need to do some unit testing of quantile2text() function. Still
+  fails with index out of range error intermittently.
 
 * ever received platinum containing chemo
 
@@ -104,6 +106,9 @@ To do
 
 Lower priority to do
 --------
+
+* Rename the "distribution" csv files so they are recognizable as
+  such.
 
 * which vendor ran your genotype
 

@@ -13,6 +13,12 @@ class Tumor:
         self.histology = quantile2text(random.uniform(0, 1),
                                        "histology.csv", 1, 0, ",")
 
+        #### Pick a lung cancer stage
+
+        stage_rand = random.uniform(0, 1)
+        self.stage = quantile2text(stage_rand, "stage.csv", 2, 0, ",")
+        self.tnm = quantile2text(stage_rand, "stage.csv", 2, 1, ",")
+
         #### Pick from genes with known distribution for given histology.
 
         gene_freq = {}
