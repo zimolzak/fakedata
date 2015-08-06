@@ -8,10 +8,10 @@ Generate structured medical data from "first principles."
 Introduction
 --------
 
-What shoud we do when an algorithm, app, data model, etc. needs some
+What should we do when an algorithm, app, data model, etc. needs some
 data to practice on? One approach is to take real private health
 records and deidentify them, but we don't like this approach because
-it's fraught with problems.
+it's fraught with problems (see below).
 
 Code explanation
 ---------
@@ -20,19 +20,24 @@ Usage:
 
     ./make_npa_city_state.sh    # needs to be run one time only
     ./fakedata.py
+    ./make_sample_datasets.sh
+    ./makepdf.sh
 
-Outputs CSV files of lab data and demographics.
+Outputs CSV files of demographics + histology + genes, and lab data
+(patients.csv, labs.csv).
 
 Input files:
 
-* bmp_ranges.csv
-* cbc_ranges.csv
+* bmp_ranges.csv (handcrafted)
+* cbc_ranges.csv (handcrafted)
 * dist.all.last, dist.female.first, dist.male.first
-* npanxx99.txt
-* zipcodes.csv (population distribution by zip code, calc from census)
-* zip_code_database.csv (decode city, state. From
+  (http://www2.census.gov/topics/genealogy/1990surnames/dist.male.first)
+* npanxx99.txt (honestly not sure where I downloaded this)
+* zipcodes.csv (population distribution by zip code, downloaded from
+  factfinder.census.gov and manually edited into this form. )
+* zip_code_database.csv (used to decode city, state. From
   unitedstateszipcodes.org)
-* histology.csv
+* histology.csv (handcrafted)
 
 Current features
 --------
@@ -71,38 +76,85 @@ Current features
   Calcium, WBC differential.
 
 * Age, gender. These two variables simulate the *joint* probability
-  distribution of age & gender in US veterans. 
+  distribution of age & gender in US veterans (all comers, not limited
+  to lung cancer patients, so you get some 29 year olds).
 
 * limits on Brownian motion so it can't get absurd or negative
   numbers, K of 25, Hct of 109, etc.
 
 * Clearly denotes the demographics as fake.
 
-* Genes
+* Genes. Somewhat realistic distributions of lung cancer mutations
+  based on published literature. Also plausible number of mutations
+  per tumor.
 
 * Specific diagnosis (really only histology).
 
 To do
 --------
 
-* Names of meds you've received for cancer. What types of meds (oral,
-  IV, targeted, traditional). For oral: fill dates & quantities. Other
-  CA treatments (surg, rads)?
+* Stage of cancer (kinda required in order to pick a random
+  treatment). Should be _number one priority._
 
-* Social security number
+* ever received platinum containing chemo
 
-* Stage of cancer (kinda required in order to pick a random treatment)
+* failed first line treatment
+
+* date of diagnosis
 
 Lower priority to do
 --------
 
-* Response of cancer to treatment (progressing | stable | remitting)
+* which vendor ran your genotype
 
-* More dates: of diagnosis, recruitment, upcoming appointments with
-  oncology, rad-onc, chemotherapy.
+* Names of meds you've received for cancer. What types of meds (oral,
+  IV, targeted, traditional). For oral: fill dates & quantities. Other
+  CA treatments (surg, rads)? [fancier version of "ever received
+  platinum containing chemo"]
+
+* Social security number
+
+* Response of cancer to treatment (progressing | stable | remitting).
+  fancier version of "failed first line treatment"]
+
+* More dates: recruitment, upcoming appointments with oncology,
+  rad-onc, chemotherapy.
 
 * vital signs
 
 * What level of consent for Precision Oncology.
 
 * Era of military service.
+
+* consider splitting out one lab per line. (id=0, date=2014-04-04,
+  lab=hgb, val=10.2)
+
+* make it messy in deeper ways (messy can mean more than just out of
+  range results).
+
+* curl to automate download of source data files like from census.gov
+
+* refactor better names for my classes and modules
+
+What does 'fraught' mean?
+--------
+
+Here is my argument for why we may want fake data from scratch rather
+than deidentified real data.
+
+First: 45 CFR 164.514 describes two ways in which covered entities may
+classify information as not individually identifiable. (A.) A person
+with knowledge of statistical means for "rendering information not
+individually identifiable" must determine that the reidentification
+risk "is very small." (B.) The identifiers that 45 CFR specifies must
+be removed.
+
+Second: Erika Holmberg’s notes on data security say "MAVERIC has not
+previously certified datasets as de-identified."
+
+Third: Because of the first two points, I am not sure that it is
+enough to do small tinkering with dates and/or lab values. 
+
+Fourth: Data from scratch is what Vick, Ned, and I thought we would
+try to start with, because of all these regulatory and statistical
+issues. Ultimately it depends what works for Cytolon.

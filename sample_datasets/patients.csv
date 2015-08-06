@@ -1,0 +1,31 @@
+id,city,addr,zip,dob,gender,age,phone,state,fullname,histology,genotype
+0,Oak Park,6344 State St,48237,1954-12-29,M,60,906-555-5934,MI,"['Goodman_fake', 'James_fake']",Adenocarcinoma,"['KDR', 'EZH2']"
+1,La Habra,331 Elm Blvd,90631,1941-12-11,M,73,562-555-7869,CA,"['Gentry_fake', 'John_fake']",Adenocarcinoma,"['CDKN2A', 'ABL1']"
+2,San Francisco,141 Maple Ln,94122,1978-01-21,M,37,408-555-2423,CA,"['Patteson_fake', 'Vicente_fake']",Squamous,['GNAS']
+3,Everett,2830 Maple Ln,98201,1926-09-08,M,88,425-555-3258,WA,"['Fieck_fake', 'David_fake']",Adenocarcinoma,"['KRAS', 'JAK2']"
+4,Harrisburg,8573 Maple St,17104,1952-12-25,M,62,610-555-6028,PA,"['Lobo_fake', 'Jerry_fake']",Adenocarcinoma,"['FOXL2', 'NOTCH1']"
+5,Zwolle,6136 Maple St,71486,1933-10-03,M,81,318-555-4528,LA,"['Lee_fake', 'Charles_fake']",Squamous,"['EWSR1 rearrangement', 'VHL']"
+6,Wethersfield,8521 State Blvd,06109,1933-12-18,M,81,860-555-2157,CT,"['Smith_fake', 'Bill_fake']",Large-cell,[]
+7,Saint Charles,1860 Maple Blvd,63303,1937-04-21,M,77,816-555-9331,MO,"['Cook_fake', 'Jason_fake']",Squamous,"['CTNNB1', 'TMPRSS2 rearrangement', 'FANCD2', 'ERBB3 amplification', 'ETV1 rearrangement']"
+8,Tallahassee,8184 Main Blvd,32310,1967-08-04,M,47,850-555-6571,FL,"['Highland_fake', 'William_fake']",Adenocarcinoma,"['FGFR2', 'ROS1', 'HRAS', 'FGFR3', 'ETV4 rearrangement']"
+9,Rosharon,3178 Pine Ln,77583,1948-12-05,M,66,281-555-8583,TX,"['Porter_fake', 'Brandon_fake']",Squamous,"['DDR2', 'KDR', 'VHL']"
+10,Gilroy,9975 Pine Ln,95020,1949-02-25,M,66,408-555-5413,CA,"['Schumacher_fake', 'David_fake']",Adenocarcinoma,"['EGFR', 'FLT3', 'NTRK1', 'HNF1A']"
+11,Largo,5066 Maple Ln,33770,1974-03-25,M,41,954-555-1866,FL,"['Hagan_fake', 'Raymond_fake']",Adenocarcinoma,"['FANCA', 'STK11']"
+12,Binghamton,3109 Elm Blvd,13901,1932-12-20,M,82,607-555-0003,NY,"['Henderson_fake', 'Eugene_fake']",Squamous,"['EGFR rearrangement', 'CSF1R', 'PTPN11', 'MYCN amplification']"
+13,Hendersonville,3948 Pine St,28792,1928-02-09,F,87,704-555-1657,NC,"['Thomas_fake', 'Kathleen_fake']",Large-cell,"['ETV6 rearrangement', 'MTOR', 'PIK3CA', 'RET amplification', 'FGFR3']"
+14,Portland,5084 Maple St,97223,1948-06-26,M,66,503-555-1492,OR,"['Brown_fake', 'Peter_fake']",Squamous,"['CTNNB1', 'SMARCB1']"
+15,Aiken,840 State Ln,29803,1973-12-20,M,41,803-555-9809,SC,"['Vance_fake', 'James_fake']",Large-cell,"['STK11', 'TP53']"
+16,Mulvane,5564 Pine Ln,67110,1947-08-16,M,67,316-555-2476,KS,"['Owens_fake', 'Charles_fake']",Adenocarcinoma,"['APC', 'TSC2', 'RARA rearrangement', 'SMARCB1', 'TMPRSS2 rearrangement']"
+17,Lake Worth,6101 Main Ln,33463,1990-06-03,M,24,954-555-9246,FL,"['Teel_fake', 'Gary_fake']",Large-cell,"['NRAS', 'FGFR2 amplification', 'KIT', 'ABL1 rearrangement']"
+18,Black River Falls,7603 Elm Blvd,54615,1979-04-16,M,35,715-555-0078,WI,"['Hernandez_fake', 'Cody_fake']",Large-cell,['ERBB3 amplification']
+19,Boynton Beach,5150 Elm St,33472,1966-11-13,M,48,561-555-3089,FL,"['Sargent_fake', 'Matthew_fake']",Adenocarcinoma,"['APC', 'CTNNB1', 'MLL rearrangement', 'BRIP1', 'ETV4 rearrangement', 'FANCE']"
+20,Huntington Beach,1529 Elm Blvd,92647,1968-11-30,M,46,562-555-7329,CA,"['Jiang_fake', 'Melvin_fake']",Adenocarcinoma,"['EGFR', 'FANCG', 'PALB2']"
+21,Corpus Christi,3971 State Ln,78411,1962-11-14,M,52,361-555-5288,TX,"['Queen_fake', 'Lamont_fake']",Adenocarcinoma,"['GNAS', 'APC', 'MSH2', 'TP53', 'PTPN11', 'SMAD4', 'KIT amplification']"
+22,Baltimore,8019 Maple Blvd,21230,1969-02-27,M,46,240-555-8653,MD,"['Epstein_fake', 'Adam_fake']",Adenocarcinoma,"['BRAF', 'BRCA1']"
+23,Lincoln,3176 Main Blvd,68521,1951-04-04,F,64,402-555-2983,NE,"['Crum_fake', 'Natisha_fake']",Large-cell,['BRAF']
+24,Blue Lake,8038 Main Blvd,95525,1975-12-01,M,39,707-555-1058,CA,"['Gonzalez_fake', 'Roger_fake']",Squamous,['IDH1']
+25,San Diego,907 Maple Ln,92116,1947-08-26,M,67,619-555-1688,CA,"['Perez_fake', 'Shawn_fake']",Squamous,"['MET', 'EGFR', 'FANCF']"
+26,Newark,4034 State St,07105,1975-06-13,M,39,201-555-5765,NJ,"['Martin_fake', 'Sonny_fake']",Large-cell,"['DDR2', 'MTOR']"
+27,Joliet,8247 Elm St,60431,1992-10-23,M,22,815-555-6037,IL,"['Knuth_fake', 'Patrick_fake']",Squamous,"['EGFR', 'FANCL', 'CDKN2A']"
+28,Springfield,9803 Pine Blvd,37172,1964-03-01,M,51,615-555-9949,TN,"['Porter_fake', 'Matthew_fake']",Adenocarcinoma,"['KRAS', 'TSC2']"
+29,Sarasota,9706 Elm St,34237,1975-07-18,M,39,941-555-1382,FL,"['Keene_fake', 'Morris_fake']",Adenocarcinoma,"['EGFR rearrangement', 'NTRK1']"

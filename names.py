@@ -76,10 +76,10 @@ class Patient:
         
         self.zip = quantile2text(random.uniform(0,1),
                                  'zipcodes.csv', 2, 0, ",").split()[1]
-        # source: http://www.unitedstateszipcodes.org/zip-code-database/
-
         zipcode_iterator = csv.reader(open("zip_code_database.csv", 'r'),
                                       delimiter=',', quotechar='"')
+        # source of zip_code_database.csv:
+        # http://www.unitedstateszipcodes.org/zip-code-database/
 
         self.city = ""
         self.state = ""
@@ -115,13 +115,3 @@ class Patient:
             self.phone = fallback_npa + "-555-" + str(random.randint(0,9)) \
                 + str(random.randint(0,9)) + str(random.randint(0,9)) \
                 + str(random.randint(0,9))
-
-# demographics.append(self.gender)
-# demographics.append(self.age)
-# demographics.append(self.dob)
-# demographics.append(addr)
-# demographics.append(city)
-# demographics.append(state)
-# demographics.append(zip)
-# demographics.append(phone)
-# print demographics
