@@ -95,7 +95,8 @@ Current features
 To do
 --------
 
-* Need to do some unit testing of quantile2text() function.
+* Need to do some unit testing of quantile2text() function. Still
+  fails with index out of range error intermittently.
 
 * ever received platinum containing chemo
 
