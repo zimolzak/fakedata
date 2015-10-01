@@ -36,7 +36,7 @@ Input files:
 * zipcodes.csv (population distribution by zip code, downloaded from
   factfinder.census.gov and manually edited into this form. )
 * zip_code_database.csv (used to decode city, state. From
-  unitedstateszipcodes.org)
+  http://www.unitedstateszipcodes.org/zip_code_database.csv )
 * histology.csv (handcrafted)
 
 Current features
@@ -103,6 +103,11 @@ To do
 * failed first line treatment
 
 * date of diagnosis
+
+* Makefile or tup, especially for downloading.
+
+* Facility (hospital) name, pathologist name, PCP, oncologist,
+  specimen number.
 
 Lower priority to do
 --------
