@@ -18,10 +18,10 @@ labs_per_patient = 20
 patients_to_generate = 30
 
 #### Initialize CSV files with headers
-labwriter = csv.writer(open('labs.csv', 'wb'))
-labwriter.writerow(["id", "date"] + public(vars(CbcBmp())).keys())
+labwriter = csv.writer(open('labs.csv', 'w'))
+labwriter.writerow(["id", "date"] + list(public(vars(CbcBmp())).keys()))
 
-patientwriter = csv.writer(open('patients.csv', 'wb'))
+patientwriter = csv.writer(open('patients.csv', 'w'))
 patientwriter.writerow(["id"] + vars(Patient()).keys() + vars(Tumor()).keys())
 
 #### Generate patients
