@@ -4,10 +4,10 @@
 import csv
 import random
 import datetime
-from lab import *
-from names import *
-from genes import *
-from dict_csv_tools import *
+from lab import CbcBmp
+from names import Patient
+from genes import Tumor
+from dict_csv_tools import public
 # import schema # maybe later
 # import json # maybe later
 
