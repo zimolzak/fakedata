@@ -19,3 +19,5 @@ npanxx99.txt
 !sample_datasets/labs.csv
 !histology.csv
 !stage.csv
+.DS_Store
+.idea/

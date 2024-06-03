@@ -1,10 +1,10 @@
-id,city,addr,zip,dob,gender,age,phone,state,fullname,tnm,genotype,histology,stage
-0,Decatur,3408 Maple Blvd,30032,1929-12-16,F,85,912-555-4564,GA,"['Murphy_fake', 'Gina_fake']",T1bn1m0,['FANCL'],Squamous,Iia
-1,Wolfe City,9164 Main St,75496,1950-09-19,M,64,903-555-7775,TX,"['Ayo_fake', 'Robert_fake']",Tnm1b,"['KRAS', 'MYC amplification', 'GNAS']",Squamous,Iv
-2,New Smyrna Beach,2458 Main Blvd,32169,1946-08-02,M,68,904-555-4326,FL,"['Somo_fake', 'Harold_fake']",T2an2m0,"['PTCH1', 'FANCL', 'BRIP1', 'JAK3', 'FANCA', 'HRAS']",Large-cell,Iiia
-3,Fort Walton Beach,1668 Maple Ln,32547,1947-12-05,M,67,850-555-0158,FL,"['Jago_fake', 'David_fake']",T2an2m0,"['MAP2K1', 'KRAS', 'SMAD4']",Adenocarcinoma,Iiia
-4,Knoxville,942 Maple Ln,37938,1954-09-13,M,60,423-555-8857,TN,"['Phillips_fake', 'Douglas_fake']",T1bn3m0,['MET'],Adenocarcinoma,Iiib
-5,Reno,1143 Maple Ln,89523,1991-11-15,M,23,702-555-1925,NV,"['Desouza_fake', 'Leroy_fake']",T1bn0m0,"['TP53', 'EZH2']",Adenocarcinoma,Ia
-6,New Philadelphia,6471 Main Blvd,44663,1925-05-15,M,89,216-555-8084,OH,"['Cullen_fake', 'Orville_fake']",T2bn0m0,"['MAP2K1', 'EGFR rearrangement', 'SMO']",Adenocarcinoma,Iia
-7,Lynchburg,509 State St,24502,1941-06-04,M,73,804-555-9546,VA,"['Zufelt_fake', 'Joel_fake']",Tnm1b,"['ROS1 rearrangement', 'NF1', 'ETV4 rearrangement']",Adenocarcinoma,Iv
-8,Raleigh,8559 Pine Blvd,27606,1938-09-02,M,76,919-555-5813,NC,"['Miller_fake', 'Gene_fake']",Tnm1a,[],Adenocarcinoma,Iv
+id,gender,age,dob,fullname,addr,histology,stage,tnm,genotype
+0,F,45,1969-06-09,"['Stanford_fake', 'Colleen_fake']",6511 Main Ln,Squamous,Iv,Tnm1a,"['CDKN2A', 'FANCF', 'BRAF', 'PDGFRB', 'ETV6 rearrangement']"
+1,F,38,1976-11-17,"['Funaro_fake', 'Mary_fake']",4506 Elm Ln,Adenocarcinoma,Iia,T2an1m0,"['DDR2', 'PDGFRB']"
+2,M,77,1938-01-25,"['Holycross_fake', 'Michael_fake']",9586 Elm Ln,Squamous,Iiib,T2an3m0,"['MSH6', 'FGFR2 amplification', 'ERBB3 amplification', 'ERBB4']"
+3,M,40,1974-11-01,"['Molina_fake', 'Arnold_fake']",5855 State Ln,Adenocarcinoma,Iv,Tnm1a,['CDH1']
+4,F,61,1953-09-19,"['Boggs_fake', 'Yesenia_fake']",6942 Main Ln,Large-cell,Iv,Tnm1b,"['MLL rearrangement', 'RARA rearrangement', 'FANCF', 'TSC1']"
+5,M,38,1976-09-09,"['Sagraves_fake', 'Jose_fake']",2790 Elm Blvd,Squamous,Iia,T1bn1m0,"['MET amplification', 'PDGFRA amplification', 'IDH2', 'FOXL2', 'HNF1A']"
+6,F,25,1989-05-21,"['Arthur_fake', 'Shirley_fake']",6679 State St,Large-cell,Iiia,T2an2m0,"['FANCG', 'JAK3', 'ETV4 rearrangement', 'FGFR2']"
+7,F,57,1958-01-28,"['Yang_fake', 'Mary_fake']",5876 Main Ln,Adenocarcinoma,Iv,Tnm1b,['BRAF']
+8,M,51,1963-08-20,"['Skorski_fake', 'Jonathan_fake']",3823 Main Blvd,Large-cell,Iiia,T4n1m0,"['SMAD4', 'CSF1R', 'ERBB3 amplification', 'EWSR1 rearrangement', 'MLL rearrangement']"
