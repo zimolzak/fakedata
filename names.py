@@ -29,7 +29,7 @@ def quantile2text(quantile, filename, q_column, t_column, split_text):
 
 class Patient:
     def __init__(self):
-        Proportion_male = 0.927
+        Proportion_male = 0.4
         Age_ranges = [18, 35, 55, 65, 75, 91]
         Age_cumu_p = {"M":[0.071, 0.306, 0.541, 0.765, 1.1], \
                                "F":[0.210, 0.667, 0.834, 0.903, 1.1]}
@@ -73,46 +73,8 @@ class Patient:
             self.fullname.append(quantile2text(r, filename, 2, 0, None) \
                                      + "_fake")
 
-        ######## ZIP, City, State ########
-        
-        self.zip = quantile2text(random.uniform(0,1),
-                                 'zipcodes.csv', 2, 0, ",").split()[1]
-        zipcode_iterator = csv.reader(open("zip_code_database.csv", 'r'),
-                                      delimiter=',', quotechar='"')
-        # source of zip_code_database.csv:
-        # http://www.unitedstateszipcodes.org/zip-code-database/
-
-        self.city = ""
-        self.state = ""
-        for fields in zipcode_iterator:
-            if self.zip != fields[0]:
-                continue
-            else:
-                self.city = fields[2]
-                self.state = fields[5]
-                break
-
         ######## Address ########
         
         self.addr = str(random.randint(10,9999)) + " " + \
             random.choice(["Elm", "Pine", "Maple", "State", "Main"]) + " " + \
             random.choice(["St", "Ln", "Blvd"])
-
-        ######## Phone ########
-        
-        self.phone = ""
-        fallback_npa = ""
-        npa_iterator = csv.reader(open("npa_city_state.csv", 'r'),
-                                  delimiter=',', quotechar='"')
-        for npa, test_city, test_state in npa_iterator:
-            if test_state == self.state:
-                fallback_npa = str(npa)
-            if test_state == self.state and test_city == self.city:
-                self.phone = str(npa) + "-555-" + str(random.randint(0,9)) \
-                    + str(random.randint(0,9)) + str(random.randint(0,9)) \
-                    + str(random.randint(0,9))
-                break
-        if self.phone == "":
-            self.phone = fallback_npa + "-555-" + str(random.randint(0,9)) \
-                + str(random.randint(0,9)) + str(random.randint(0,9)) \
-                + str(random.randint(0,9))

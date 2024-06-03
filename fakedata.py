@@ -18,23 +18,23 @@ labs_per_patient = 20
 patients_to_generate = 30
 
 #### Initialize CSV files with headers
-labwriter = csv.writer(open('labs.csv', 'wb'))
-labwriter.writerow(["id", "date"] + public(vars(CbcBmp())).keys())
+labwriter = csv.writer(open('labs.csv', 'w'))
+labwriter.writerow(["id", "date"] + list(public(vars(CbcBmp())).keys()))
 
-patientwriter = csv.writer(open('patients.csv', 'wb'))
-patientwriter.writerow(["id"] + vars(Patient()).keys() + vars(Tumor()).keys())
+patientwriter = csv.writer(open('patients.csv', 'w'))
+patientwriter.writerow(["id"] + list(public(vars(Patient())).keys()) + list(public(vars(Tumor())).keys()))
 
 #### Generate patients
 
 for id in range(patients_to_generate):
-    patientwriter.writerow([id] + vars(Patient()).values() \
-                               + vars(Tumor()).values())
+    patientwriter.writerow([id] + list(public(vars(Patient())).values()) \
+                               + list(public(vars(Tumor())).values()))
 
     ### Generate repeated labs over time
     Panel = CbcBmp(star=False)
     t = datetime.date(2014,1,1) + datetime.timedelta(random.randint(0,365))
     for i in range(labs_per_patient):
-        labwriter.writerow([id, str(t)] + public(vars(Panel)).values())
+        labwriter.writerow([id, str(t)] + list(public(vars(Panel)).values()))
         # The update rules are below.
         dt = datetime.timedelta(int(random.expovariate(1.0 / avg_days)))
         t = t + dt

@@ -36,7 +36,7 @@ class Tumor:
         self.genotype = []
 
         if self.histology != 'Large-cell':
-            for gene, frequency in gene_freq[self.histology].iteritems():
+            for gene, frequency in gene_freq[self.histology].items():
                 if random.uniform(0,1) < frequency:
                     self.genotype.append(gene)
 
@@ -68,7 +68,7 @@ class Tumor:
         rearr = ['ABL1', 'EGFR', 'PDGFRA', 'ROS1', 'ALK', 'PDGFRB']
 
         if self.histology != 'Large-cell':
-             for gene, frequency in gene_freq[self.histology].iteritems():
+             for gene, frequency in gene_freq[self.histology].items():
                  if frequency > 0.0:
                      gene_set.discard(gene)
 
