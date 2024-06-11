@@ -9,9 +9,9 @@ labs_per_patient = 20
 patients_to_generate = 30
 
 # Initialize CSV files with headers
-patientwriter = csv.writer(open('patients-2024.csv', 'w'))
-patientwriter.writerow(["id"] + list(public(vars(Patient())).keys()))
+patient_writer = csv.writer(open('patients-2024.csv', 'w'))
+patient_writer.writerow(["id"] + list(public(vars(Patient())).keys()))
 
 # Generate patients
-for id in range(patients_to_generate):
-    patientwriter.writerow([id] + list(public(vars(Patient())).values()))
+for n in range(patients_to_generate):
+    patient_writer.writerow([n] + list(public(vars(Patient())).values()))
