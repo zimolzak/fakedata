@@ -3,7 +3,17 @@ import random
 import datetime
 
 
-def quantile2text(quantile, filename, q_column, t_column, split_text):
+def quantile2text(quantile: float, filename: str, q_column: int, t_column: int, split_text: ) -> str:
+    """Opens a file that has data on the distribution of some patient characteristic, use quantile to look up and
+    return a value. We use it for choosing random names, histology, and stage.
+
+    :param quantile: Random number, usually uniformly chosen from 0..1 or 0..100
+    :param filename: What CSV or space-delimited file to open
+    :param q_column: Which column of the file contains percentile (c.d.f.)
+    :param t_column: Which column contains the text we will return
+    :param split_text: What delimiter to split lines of the file. (None implies default Python .split())
+    :return: A string showing the random value chosen for the characteristic.
+    """
     file = open(filename, 'r')
     found_name = ""
     names_to_pick = []
@@ -30,9 +40,9 @@ def quantile2text(quantile, filename, q_column, t_column, split_text):
 
 class Patient:
     def __init__(self):
-        Proportion_male = 0.4
-        Age_ranges = [18, 35, 55, 65, 75, 91]
-        Age_cumu_p = {
+        proportion_male = 0.4
+        age_ranges = [18, 35, 55, 65, 75, 91]
+        age_cumu_p = {
             "M": [0.071, 0.306, 0.541, 0.765, 1.1],
             "F": [0.210, 0.667, 0.834, 0.903, 1.1]
         }
@@ -46,7 +56,7 @@ class Patient:
         # Gender ########
 
         self.gender = ""
-        if random.uniform(0, 1) > Proportion_male:
+        if random.uniform(0, 1) > proportion_male:
             firstname_file = 'dist.female.first'
             self.gender = "F"
         else:
@@ -57,27 +67,27 @@ class Patient:
 
         self.age = None
         age_quantile = random.uniform(0, 1)
-        for i, cutpoint in enumerate(Age_cumu_p[self.gender]):
+        for i, cutpoint in enumerate(age_cumu_p[self.gender]):
             if age_quantile > cutpoint:
                 continue
             else:
-                self.age = random.randint(Age_ranges[i],
-                                          Age_ranges[i + 1] - 1)
+                self.age = random.randint(age_ranges[i],
+                                          age_ranges[i + 1] - 1)
                 break
         extradays = random.randint(0, 364)
-        self.dob = datetime.date(2015, 3, 30) - \
-                   datetime.timedelta(self.age * 365 + extradays)
+        self.dob = datetime.date(2015, 3, 30) - datetime.timedelta(self.age * 365 + extradays)
 
         # Name ########
 
-        self.fullname = []
-        for filename in ('dist.all.last', firstname_file):
+        self.fullname = ""
+        for filename in (firstname_file, 'dist.all.last'):
             r = random.uniform(0, 90.483)  # names file only covers 90.5%
-            self.fullname.append(quantile2text(r, filename, 2, 0, None))
+            self.fullname += quantile2text(r, filename, 2, 0, None)
             # q column is 2 (the c.d.f.), and t column is 0 (text)
 
         # Address ########
 
-        self.addr = str(random.randint(10, 9999)) + " " + \
-                    random.choice(["Elm", "Pine", "Maple", "State", "Main"]) + " " + \
-                    random.choice(["St", "Ln", "Blvd"])
+        self.addr =\
+            str(random.randint(10, 9999)) + " " \
+            + random.choice(["Elm", "Pine", "Maple", "State", "Main"]) + " " \
+            + random.choice(["St", "Ln", "Blvd"])
