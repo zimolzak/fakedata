@@ -1,22 +1,27 @@
-patients-2024.csv labs.csv : dist.all.last dist.male.first dist.female.first \
+.PHONY: all sample clean cleanall
+
+core = patients-2024.csv labs.csv visits.csv meds.csv
+
+$(core): dist.all.last dist.male.first dist.female.first \
 			npa_city_state.csv zip_code_database.csv \
-			new-fake-ehr-data.py names.py dict_csv_tools.py lab.py
+			new-fake-ehr-data.py names.py dict_csv_tools.py lab.py \
+			visits.py diagnoses.csv
 	python new-fake-ehr-data.py
 
-all : labs.csv patients-2024.csv sample code.pdf
+all : $(core) sample code.pdf
 
-code.pdf :
+code.pdf :  # FIXME - delete this
 	enscript -vGE -o - *.py | ps2pdf - code.pdf
 
 sample : dist.all.last dist.male.first dist.female.first npa_city_state.csv \
-	 zip_code_database.csv npanxx99.txt patients.csv labs.csv
+	 zip_code_database.csv npanxx99.txt patients-2024.csv labs.csv
 	mkdir -p sample_datasets
 	head dist.all.last         > ./sample_datasets/dist.all.last
 	head dist.female.first     > ./sample_datasets/dist.female.first
 	head dist.male.first       > ./sample_datasets/dist.male.first
 	head npanxx99.txt          > ./sample_datasets/npanxx99.txt
 	head zip_code_database.csv > ./sample_datasets/zip_code_database.csv
-	head patients.csv          > ./sample_datasets/patients.csv
+	head patients-2024.csv          > ./sample_datasets/patients.csv
 	head labs.csv              > ./sample_datasets/labs.csv
 
 npa_city_state.csv : npanxx99.txt
@@ -35,8 +40,7 @@ zip_code_database.csv :
 	curl -O 'http://www.unitedstateszipcodes.org/zip_code_database.csv'
 
 clean :
-	rm -f labs.csv
-	rm -f patients-2024.csv
+	rm -f $(core)
 
 cleanall : clean
 	rm -f dist.all.last
