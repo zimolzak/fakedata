@@ -3,7 +3,7 @@ import random
 import datetime
 
 
-def quantile2text(quantile: float, filename: str, q_column: int, t_column: int, split_text: str) -> str:
+def quantile2text(quantile: float, filename: str, q_column: int, t_column: int, split_text) -> str:
     """Opens a file that has data on the distribution of some patient characteristic, use quantile to look up and
     return a value. We use it for choosing random names, histology, and stage.
 
@@ -17,7 +17,8 @@ def quantile2text(quantile: float, filename: str, q_column: int, t_column: int, 
     file = open(filename, 'r')
     found_name = ""
     names_to_pick = []
-    matching_proportion = 0
+    matching_proportion = 0.0
+    cumu_p = 0.0
     while found_name == "":
         fields = file.readline().split(split_text)
         name = fields[t_column]
