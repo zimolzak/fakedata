@@ -1,8 +1,12 @@
-labs.csv patients.csv : dist.all.last dist.male.first dist.female.first \
-			npa_city_state.csv zip_code_database.csv
+patients-2024.csv : dist.all.last dist.male.first dist.female.first \
+			npa_city_state.csv zip_code_database.csv \
+			new-fake-ehr-data.py names.py dict_csv_tools.py
+	python new-fake-ehr-data.py
+
+labs.csv : dict_csv_tools.py lab.py fakedata.py
 	./fakedata.py
 
-all : labs.csv patients.csv sample code.pdf
+all : labs.csv patients-2024.csv sample code.pdf
 
 code.pdf :
 	enscript -vGE -o - *.py | ps2pdf - code.pdf
