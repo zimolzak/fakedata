@@ -84,7 +84,9 @@ class Patient:
         for filename in (firstname_file, 'dist.all.last'):
             r = random.uniform(0, 90.483)  # names file only covers 90.5%
             self.fullname += quantile2text(r, filename, 2, 0, None)
+            self.fullname += " "
             # q column is 2 (the c.d.f.), and t column is 0 (text)
+        self.fullname = self.fullname.rstrip()
 
         # Address ########
 
