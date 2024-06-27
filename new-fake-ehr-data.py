@@ -28,7 +28,9 @@ med_writer.write("pat_id,date,med_prescribed\n")
 
 # Generate patients
 for pat_id in range(patients_to_generate):
-    pat_id += 1
+    pat_id += 1000000
+    pat_id *= 10
+    pat_id += random.randint(0, 9)
 
     # Patient
     patient_writer.writerow([pat_id] + list(public(vars(Patient())).values()))
