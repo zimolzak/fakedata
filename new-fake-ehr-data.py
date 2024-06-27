@@ -45,6 +45,8 @@ for pat_id in range(patients_to_generate):
         # Update the time and the labs.
         dt = datetime.timedelta(int(random.expovariate(1.0 / avg_days)))
         t = t + dt
+        if t > datetime.date.today():
+            break
         lab_obj.update(delta, dt)
 
     # Visits
