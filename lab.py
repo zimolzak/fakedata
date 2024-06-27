@@ -64,8 +64,9 @@ class LabDefinition:
         """
         assert 0 <= how_sick <= 1
         mu = (self._roots[rootname]['low'] + self._roots[rootname]['high']) / 2
-        sigma = (self._roots[rootname]['low'] - self._roots[rootname]['high']) \
-                / 2 * (how_sick + 1)
+        sigma =\
+            (self._roots[rootname]['low'] - self._roots[rootname]['high'])\
+            / 2 * (how_sick + 1)
         x = random.normalvariate(mu, sigma)
         if x < self._roots[rootname]['hardlow']:
             x = self._roots[rootname]['hardlow']
@@ -142,8 +143,8 @@ class LabDefinition:
         """Return two stars if the given root is outside its normal range.
         Currently only works for roots, not for correlates.
         """
-        if not (self._roots[rootname]['low'] \
-                <= self._roots[rootname]['value'] \
+        if not (self._roots[rootname]['low']
+                <= self._roots[rootname]['value']
                 <= self._roots[rootname]['high']):
             return " **"
         else:
@@ -155,13 +156,15 @@ class LabDefinition:
         """
         if labname in self._roots.keys():
             if self._star:
-                str = self.sigfig(self._roots[labname]['value']) + \
+                str_lab = self.sigfig(self._roots[labname]['value']) + \
                       self.star_if_abnormal(labname)
             else:
-                str = self.sigfig(self._roots[labname]['value'])
+                str_lab = self.sigfig(self._roots[labname]['value'])
         elif labname in self._correlate_values.keys():
-            str = self.sigfig(self._correlate_values[labname])
-        exec("self." + labname + " = '" + str + "'")
+            str_lab = self.sigfig(self._correlate_values[labname])
+        else:
+            str_lab = "ERROR"
+        exec("self." + labname + " = '" + str_lab + "'")
 
 
 class CbcBmp(LabDefinition):
