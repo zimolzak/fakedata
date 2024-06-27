@@ -35,14 +35,15 @@ zip_code_database.csv :
 	curl -O 'http://www.unitedstateszipcodes.org/zip_code_database.csv'
 
 clean :
-	rm -f npa_city_state.csv
 	rm -f labs.csv
-	rm -f patients.csv
-	rm -rf sample_datasets
-	rm -f code.pdf
+	rm -f patients-2024.csv
 
 cleanall : clean
 	rm -f dist.all.last
 	rm -f dist.male.first
 	rm -f dist.female.first
 	rm -f zip_code_database.csv
+	rm -f npa_city_state.csv
+	rm -f patients.csv
+	rm -rf sample_datasets
+	rm -f code.pdf
