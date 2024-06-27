@@ -21,7 +21,7 @@ def quantile2text(quantile: float, filename: str, q_column: int, t_column: int, 
     cumu_p = 0.0
     while found_name == "":
         fields = file.readline().split(split_text)
-        name = fields[t_column]
+        name = fields[t_column]  # FIXME some weird bug with list index out of range, from fullname +=...
         if fields[0] != '':  # catch extra newline
             cumu_p = float(fields[q_column])
         if quantile <= cumu_p and matching_proportion == 0:
@@ -66,17 +66,17 @@ class Patient:
 
         # Age and DOB ########
 
-        self.age = None
+        self._age = None
         age_quantile = random.uniform(0, 1)
         for i, cutpoint in enumerate(age_cumu_p[self.gender]):
             if age_quantile > cutpoint:
                 continue
             else:
-                self.age = random.randint(age_ranges[i],
-                                          age_ranges[i + 1] - 1)
+                self._age = random.randint(age_ranges[i],
+                                           age_ranges[i + 1] - 1)
                 break
         extradays = random.randint(0, 364)
-        self.dob = datetime.date(2015, 3, 30) - datetime.timedelta(self.age * 365 + extradays)
+        self.dob = datetime.date.today() - datetime.timedelta(self._age * 365 + extradays)
 
         # Name ########
 
@@ -92,5 +92,8 @@ class Patient:
 
         self.addr =\
             str(random.randint(10, 9999)) + " " \
-            + random.choice(["Elm", "Pine", "Maple", "State", "Main"]) + " " \
-            + random.choice(["St", "Ln", "Blvd"])
+            + random.choice(["Elm St", "Pine Blvd", "Maple St", "State St", "Main St",
+                             "Washington Ave", "Beacon St", "Congress Ave", "2nd Ave",
+                             "1st St", "2nd St", "3rd St", "4th St", "5th St", "6th St",
+                             "7th St", "8th St",
+                             "9th St", "10th St"])
