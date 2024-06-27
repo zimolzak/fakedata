@@ -21,7 +21,7 @@ def quantile2text(quantile: float, filename: str, q_column: int, t_column: int, 
     cumu_p = 0.0
     while found_name == "":
         fields = file.readline().split(split_text)
-        name = fields[t_column]  # FIXME some weird bug with list index out of range, from fullname +=...
+        name = fields[t_column]
         if fields[0] != '':  # catch extra newline
             cumu_p = float(fields[q_column])
         if quantile <= cumu_p and matching_proportion == 0:
@@ -82,7 +82,7 @@ class Patient:
 
         self.fullname = ""
         for filename in (firstname_file, 'dist.all.last'):
-            r = random.uniform(0, 90.483)  # names file only covers 90.5%
+            r = random.uniform(0, 90.0)  # names file only covers 90.5% .. Men only to 90.040
             self.fullname += quantile2text(r, filename, 2, 0, None)
             self.fullname += " "
             # q column is 2 (the c.d.f.), and t column is 0 (text)

@@ -10,8 +10,7 @@ from visits import VisitDiagnoses
 delta = 0.03  # brownian motion param, units 1/time^2. Hi=labile, lo=stable.
 avg_days = 365  # mean days between two lab measurements
 labs_per_patient = 10
-patients_to_generate = 30
-
+patients_to_generate = 300
 
 # Initialize CSV files with headers
 patient_writer = csv.writer(open('patients-2024.csv', 'w'))
