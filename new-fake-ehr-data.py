@@ -8,9 +8,10 @@ from visits import VisitDiagnoses
 
 # Parameters
 delta = 0.03  # brownian motion param, units 1/time^2. Hi=labile, lo=stable.
-avg_days = 90  # mean days between two lab measurements
-labs_per_patient = 20
+avg_days = 365  # mean days between two lab measurements
+labs_per_patient = 10
 patients_to_generate = 30
+
 
 # Initialize CSV files with headers
 patient_writer = csv.writer(open('patients-2024.csv', 'w'))
@@ -40,10 +41,10 @@ for pat_id in range(patients_to_generate):
         lab_values = list(public(vars(lab_obj)).values())
         for j in range(len(lab_values)):
             lab_writer.writerow([pat_id, str(t), lab_names[j], lab_values[j]])
-            # Update the time and the labs.
-            dt = datetime.timedelta(int(random.expovariate(1.0 / avg_days)))
-            t = t + dt
-            lab_obj.update(delta, dt)
+        # Update the time and the labs.
+        dt = datetime.timedelta(int(random.expovariate(1.0 / avg_days)))
+        t = t + dt
+        lab_obj.update(delta, dt)
 
     # Visits
     n_visits = random.randint(1, 10)
