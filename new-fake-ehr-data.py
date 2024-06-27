@@ -17,7 +17,7 @@ patient_writer.writerow(["id"] + list(public(vars(Patient())).keys()))
 
 lab_writer = csv.writer(open('labs.csv', 'w'))
 lab_names = list(public(vars(CbcBmp())).keys())
-lab_writer.writerow(["id", "date"] + lab_names)
+lab_writer.writerow(["id", "date", "lab_name", "value"])
 
 # Generate patients
 for n in range(patients_to_generate):
@@ -26,8 +26,11 @@ for n in range(patients_to_generate):
     t = datetime.date(2014, 1, 1) + datetime.timedelta(random.randint(0, 365))
 
     for i in range(labs_per_patient):
-        lab_writer.writerow([n, str(t)] + list(public(vars(lab_obj)).values()))
-        # The update rules are below.
+        lab_values = list(public(vars(lab_obj)).values())
+        for j in range(len(lab_values)):
+            lab_writer.writerow([n, str(t), lab_names[j], lab_values[j]])
+
+        # Update the time and the labs.
         dt = datetime.timedelta(int(random.expovariate(1.0 / avg_days)))
         t = t + dt
         lab_obj.update(delta, dt)
